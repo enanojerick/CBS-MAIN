@@ -1,0 +1,50 @@
+﻿@model LogoutViewModel
+
+
+<div class="content-wrapper dashboard">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            @ViewData["Title"]
+        </h1>
+    </section>
+    <!-- Main content -->
+    <section class="content container-fluid">
+        <div class="logout-page">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-solid">
+                        <div class="box-header">
+                            <h2>Logout</h2>
+                        </div>
+                        <div class="box-body">
+                            @if (ViewBag.isFromHR)
+                            {
+                            <p>Would you like to logout from ConnectHR</p>
+
+                            }
+                            else
+                            {
+                                <p>Would you like to logout from ConnectHQ</p>
+
+                            }
+                            
+                            <form asp-action="Logout">
+                                <input type="hidden" name="logoutId" value="@Model.LogoutId" />
+                                <fieldset>
+                                    <div class="form-group">
+                                        <button class="btn btn-primary">Yes</button>
+                                    </div>
+                                </fieldset>
+
+                                <input type="hidden" name="logoutId" value="@Model.IsFromExt" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+        

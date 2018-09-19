@@ -1,0 +1,89 @@
+﻿@model IList<UserDto>
+@{
+    Layout = null;
+    var isSuperAdmin = this.User.IsInRole(ViewBag.superAdmin);
+}
+
+<table class="table table-responsive">
+    <thead>
+        <tr>
+            <th> User level </th>
+            <th> Access description </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.rolesext)
+        {
+        <tr>
+            <td>@item.Role</td>
+            <td>@item.Description</td>
+            @*@if (isSuperAdmin)
+            {
+                <td>
+                    <a class="btn btn-sm btn-warning" asp-controller="Role" asp-action="AssignUsersToRole" asp-route-identityid="@item.Role">Assign Role</a>
+                </td>
+            }*@
+        </tr>
+        }
+    </tbody>
+</table>
+
+@*<table class="table table-responsive table-bordered sortingtables">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Organisation</th>
+            <th>Role</th>
+            @if (isSuperAdmin)
+            {
+                <th></th>
+            }
+
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.FirstName @item.LastName</td>
+                <td>@item.Email</td>
+                <td>
+                    @if (item.Organization != null)
+                    {
+                        @item.Organization.OrganizationName
+                    }
+                </td>
+                <td>
+                    @if (item.Roles.Count() > 0)
+                    {
+                        var ctr = 0;
+                        @foreach (var itemRole in item.Roles)
+                        {
+                            if (ctr == 0)
+                            {
+                                @itemRole
+                            }
+                            else
+                            {
+                                @:, @itemRole
+                            }
+
+                            ctr++;
+                        }
+                    }
+                </td>
+
+                @if (isSuperAdmin)
+                {
+                    <td>
+                        <a class="btn btn-sm btn-warning" asp-controller="Role" asp-action="AssignRole" asp-route-identityid="@item.IdentityID">Add/Edit Role</a>
+                    </td>
+                }
+
+
+            </tr>
+        }
+    </tbody>
+</table>*@

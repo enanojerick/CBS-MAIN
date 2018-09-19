@@ -1,0 +1,60 @@
+﻿@model IList<OrganizationDto>
+
+@{
+    ViewData["Title"] = "Organisation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper dashboard">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            @ViewData["Title"]
+        </h1>
+    </section>
+    <!-- Main content -->
+    <section class="content container-fluid">
+        <div class="box box-solid">
+            <div class="box-header">
+                @if (ViewBag.Origin == 1)
+                {
+                    <a class="btn btn-info" asp-action="Index" asp-controller="Organization" asp-route-tab="@ViewBag.Tab"><i class="fa fa-file-alt"></i>Back to My Organization Management</a>
+                }
+                else
+                {
+                    <a class="btn btn-info" asp-action="Index" asp-controller="Location" asp-route-tab="@ViewBag.Tab"><i class="fa fa-file-alt"></i>Back to My Location Management</a>
+                }
+                <a class="btn btn-info" asp-action="AddBranch" asp-controller="Organization" asp-route-orgid="@ViewBag.OrgID"><i class="fa fa-plus"></i> Add Branch</a>
+            </div>
+        </div>
+        <div class="box box-solid">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <table class="table table-responsive table-hover">
+                        <tr>
+                            <th>Branch</th>
+                            <th>State</th>
+                            <th>Address</th>
+                            <th></th>
+                        </tr>
+                        <tbody>
+                            @foreach (var item in Model)
+                                {
+                                <tr>
+                                    <td>@item.OrganizationName</td>
+                                    <td>@item.StateProvince</td>
+                                    <td>@item.StreetOne @item.StreetTwo</td>
+                                    <td>
+                                        <a asp-action="EditBranch" asp-controller="Organization" asp-route-orgid="@item.OrganizationID" asp-route-r="2" class="btn btn-warning btn-sm">Edit</a>
+                                    </td>
+                                </tr>
+
+                                }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

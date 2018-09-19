@@ -1,0 +1,9 @@
+
+*.dll
+*.cache
+.vs/Cornerstone.Main/v15/Server/sqlite3/db.lock
+.vs/Cornerstone.Main/v15/Server/sqlite3/storage.ide
+.vs/Cornerstone.Main/v15/Server/sqlite3/storage.ide-shm
+.vs/Cornerstone.Main/v15/Server/sqlite3/storage.ide-wal
+.vs/Cornerstone.Main/DesignTimeBuild/.dtbcache
+*.pdb

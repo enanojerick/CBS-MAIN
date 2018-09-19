@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Roles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1 class="head-title">
+            @ViewData["Title"]
+        </h1>
+    </section>
+
+    <section class="content container-fluid">
+        <div class="box box-solid">
+            <div class="box-header">
+                <a class="btn btn-info" asp-action="Index" asp-controller="Organization"><i class="fa fa-file-alt"></i>Back to Organization</a>
+            </div>
+        </div>
+        <div class="box box-solid">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <form class="form-horizontal" id="org-form" asp-action="Add" asp-controller="Role">
+
+                            <div class="mb-15">
+                                <label for="role">Role Name</label>
+                                <input type="text" class="form-control" name="role" id="role" />
+                            </div>
+
+                            <div class="row mb-15 pull-right">
+                                <div class="col-md-12">
+                                    <input type="submit" class="btn btn-primary" value="Save">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

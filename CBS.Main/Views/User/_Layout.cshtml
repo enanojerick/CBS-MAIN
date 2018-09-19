@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper dashboard">
+    <section class="content-header">
+        <h1>
+            @ViewData["Title"]
+        </h1>
+    </section>
+
+
+    <div class="col-md-12">
+        <div class="box box-solid">
+            <div class="box-body">
+                <div class="col-md-6">
+                    <a asp-controller="User" asp-action="Index" class="btn btn-info @(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "hide" : "")"><i class="fa fa-list"></i> List User</a>
+                    <button class="btn btn-info @(ViewContext.RouteData.Values["Action"].ToString() == "Edit" ? "hide" : "")" data-target="#registerModal" data-toggle="modal"><i class="fa fa-user-plus"></i> Add User</button>
+                </div>
+                 
+               <div class="col-md-6 pull-right">
+                    @if(ViewContext.RouteData.Values["Action"].ToString() == "Index")
+                    {
+                       <div class="col-md-2 p-r0 p-t5">
+                           <label>Organisation</label>
+                       </div>
+                        <div class="col-md-10 p-l0">
+                            <select class="form-control org-dropdown">
+                                @foreach (var item in ViewBag.Organizations)
+                                {
+                                    bool selected = ViewBag.orgId.ToString() == item.Value ? true : false; 
+                                    <option value="@item.Value" selected="@selected">@item.Text</option>
+                                }
+                            </select>
+                        </div>
+                    }
+               </div>
+            </div>
+        </div>
+    </div>
+
+
+    @RenderBody()
+</div>
+
+@section Scripts{
+    @RenderSection("Scripts", required: false)
+    <script>
+        jQuery(function () {
+            jQuery("body").on("change", ".org-dropdown", function () {
+                var val = jQuery(this).val();
+                var url = window.location.pathname;
+                window.location.href = url + "?orgid=" + val;
+            });
+
+        });
+    </script>
+}

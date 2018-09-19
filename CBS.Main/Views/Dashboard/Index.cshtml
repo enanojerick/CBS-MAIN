@@ -1,0 +1,655 @@
+﻿@model PlatformDto
+
+
+@{
+    ViewData["Title"] = "My Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper dashboard">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1 class="head-title">
+            @ViewData["Title"]
+        </h1>
+        <p class="head-description">My Dashboard is where you can see all of the IT platforms, Apps and other links I use in my role. Including platforms set by the organisation, as well as being able to add your own platforms, apps and links to the dashboard.</p>
+    </section>
+    <!-- Main content -->
+    <section class="content container-fluid">
+        <h4>Organisation Platforms</h4>
+        <div class="row">
+
+            @*<div class="col-md-2 col-xs-4 ui-state-disabled items">
+                 small box 
+                <div class="small-box bg-white">
+                    <a target="_blank" asp-action="OnePassportLink" asp-controller="Dashboard">
+                        <div class="inner">
+                            <div class="icon">
+                                <i class="fa fa-users"></i>
+                            </div>
+                            <h2>
+                                OnePassport
+                            </h2>
+
+                        </div>
+                    </a>
+                </div>
+            </div>*@
+
+            @foreach (var item in ViewBag.UserOrgApps)
+            {
+                @if (item.OrgApps != null)
+                {
+                    <div class="col-md-2 col-xs-4 ui-state-disabled items">
+                        <!-- small box -->
+                        <div class="small-box bg-white">
+                            <a target="_blank" href="@item.OrgApps.DashBoardURL">
+                                <div class="inner">
+                                    <div class="icon">
+                                        <i class="fa fa-users"></i>
+                                    </div>
+                                    <h2>
+                                        @item.OrgApps.Applications.AppName
+                                    </h2>
+
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                }
+
+            }
+        </div>
+
+        <div class="row">
+            @foreach (var item in ViewBag.OrganisationPlatforms)
+            {
+                @if (item.PlatformTypeID == 1)
+                { 
+                    <div class="col-md-2 col-xs-4 items" id="platform-@item.OrgPlatformID">
+                        <!-- small box -->
+                        <div class="small-box bg-white platform-link">
+                            <div class="pull-right margin-r-5">
+                                <span><a class="control edit-org-platform-btn" data-PlatformID="@item.OrgPlatformID" data-embed='@item.URL' data-PlatformTypeID="@item.PlatformTypeID" data-Name="@item.Name" data-Icon="@item.Icon" href="#"><i class="fa fa-edit"></i></a></span>
+                                <span><a class="control delete-org-platform-btn" data-org-platform-id="@item.OrgPlatformID" href="#"><i class="fa fa-times"></i></a></span>
+                            </div>
+                            <a href="#" data-toggle="modal" data-target="#orgVideoModal" data-embed='@item.URL' data-title="@item.Name">
+                                <div class="inner">
+                                    <div class="icon">
+                                        @if (item.Icon != null)
+                                        {
+                                            <img src="@item.IconUrl" class="platform-icon" />
+                                        }
+                                        else
+                                        {
+                                            <i class="fa fa-youtube-play"></i>
+                                        }
+
+                                    </div>
+                                    <h2>
+                                        @item.Name
+                                    </h2>
+
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                }
+            }
+       
+            @foreach (var item in ViewBag.OrganisationPlatforms)
+            {
+                @if (item.PlatformTypeID != 1)
+                { 
+                    <div class="col-md-2 col-xs-4 items" id="platform-@item.OrgPlatformID">
+                        <!-- small box -->
+                        <div class="small-box bg-white platform-link">
+                            <div class="pull-right margin-r-5">
+                                <span><a class="control edit-org-platform-btn" data-PlatformID="@item.OrgPlatformID" data-PlatformTypeID="@item.PlatformTypeID" data-Name="@item.Name" data-URL="@item.URL" data-Icon="@item.Icon" href="#"><i class="fa fa-edit"></i></a></span>
+                                <span><a class="control delete-org-platform-btn" data-org-platform-id="@item.OrgPlatformID" href="#"><i class="fa fa-times"></i></a></span>
+                            </div>
+                            <a target="_blank" href="@item.URL">
+                                <div class="inner">
+                                    <div class="icon">
+                                        @if (item.Icon != null)
+                                        {
+                                            <img src="@item.IconUrl" class="platform-icon" />
+                                        }
+                                        else
+                                        {
+                                            <i class="fa fa-link"></i>
+                                        }
+
+                                    </div>
+                                    <h2>
+                                        @item.Name
+                                    </h2>
+
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                }
+                
+
+            }
+        </div>
+    </section>
+
+    <section class="content container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <h4>My Links</h4>
+        <div class="row link-container" id="sortable">
+            <div class="col-md-2 col-xs-4 ui-state-disabled items">
+                <!-- small box -->
+                <div class="small-box bg-white">
+                    <a href="#" data-toggle="modal" data-target="#myModal">
+                        <div class="inner">
+                            <div class="icon">
+                                <i class="fa fa-plus"></i>
+                            </div>
+                            <h2>
+                                Add Link
+                            </h2>
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+
+            <div class="platform-container">
+                @foreach (var item in ViewBag.platform)
+                {
+                    <div class="col-md-2 col-xs-4 ui-state-default items" id="platform-@item.PlatformID">
+                        <!-- small box -->
+                        <div class="small-box bg-white platform-link">
+                            <div class="pull-right margin-r-5">
+                                <span><a class="control edit-platform-btn" data-PlatformID="@item.PlatformID" data-Name="@item.Name" data-URL="@item.URL" data-Icon="@item.Icon" href="#"><i class="fa fa-edit"></i></a></span>
+                                <span><a class="control delete-platform-btn" data-platform-id="@item.PlatformID" href="#"><i class="fa fa-times"></i></a></span>
+                            </div>
+
+                            <a target="_blank" href="@item.URL">
+                                <div class="inner">
+                                    <div class="icon">
+                                        @if (item.Icon != null)
+                                        {
+                                            <img src="@item.IconUrl" class="platform-icon" />
+                                        }
+                                        else
+                                        {
+                                            <i class="fa fa-link"></i>
+                                        }
+
+                                    </div>
+                                    <h2>
+                                        @item.Name
+                                    </h2>
+
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                }
+            </div>
+        </div>
+    </section>
+
+    @*<section class="content container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="inline-block">Organisation Platform </h4>
+                <a href="#" class="btn btn-info btn-sm pull-right" data-toggle="modal" data-target="#orgPlatformModal"><i class="fa fa-plus"></i></a>
+            </div>
+        </div>
+        
+        
+        
+    </section>*@
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Add Platform Link</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <form class="form-horizontal" id="link-form" asp-controller="Dashboard" asp-action="AddPlatform" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>Title</label>
+
+                            <input type="text" class="form-control" asp-for="Name" />
+                        </div>
+                        <div class="form-group">
+                            <label>Link</label>
+                            <input type="text" class="form-control" asp-for="URL" />
+                        </div>
+                        <div class="form-group">
+                            <label>Icon</label>
+                            <input type="file" class="form-control" asp-for="File" />
+                        </div>
+
+                        <div class="form-group">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-primary" value="Save">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editPlatformModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Edit Platform Link</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <form class="form-horizontal" id="edit-platform-form" asp-controller="Dashboard" asp-action="EditPlatform" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="hidden" id="platformid" name="PlatformID" />
+                            <input type="text" class="form-control" asp-for="Name" id="name" />
+                        </div>
+                        <div class="form-group">
+                            <label>Link</label>
+                            <input type="text" class="form-control" asp-for="URL" id="url" />
+                        </div>
+                        <div class="form-group">
+                            <label>Icon</label>
+                            <input type="file" class="form-control" asp-for="File" />
+                        </div>
+
+                        <div class="form-group">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-primary" value="Save">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteLinkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Delete Link</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <p>Are you sure you want to delete this link?</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+
+                <form asp-action="DeletePlatform" asp-controller="Dashboard" class="form-inline">
+                    <input type="hidden" name="platformid" id="platformID" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-danger" value="Delete">
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="orgPlatformModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Add Organisation Platform</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <form class="form-horizontal" asp-controller="Dashboard" asp-action="AddOrganisationPlatform" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>Title</label>
+
+                            <input type="text" class="form-control" name="Name" />
+                        </div>
+                        <div class="form-group">
+                            <label>Type</label>
+                            <select class="form-control" name="PlatformTypeID" asp-items="@ViewBag.orgType" id="PlatformTypeID">
+                                <option selected disabled>Select Platform Type</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Link</label>
+                            <input type="text" class="form-control" name="URL" id="url-text" />
+                            <textarea class="hide form-control" id="embed-text-area"  name="URL" placeholder="Enter embed code" rows="5"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Icon</label>
+                            <input type="file" class="form-control" name="File" />
+                        </div>
+                        
+                        <div class="form-group">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-primary" value="Save">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editOrgPlatformModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Edit Platform Link</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <form class="form-horizontal" id="edit-org-platform-form" asp-controller="Dashboard" asp-action="EditOrganisationPlatform" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="hidden" id="platformid" name="OrgPlatformID" />
+                            <input type="text" class="form-control" asp-for="Name" id="name" />
+                        </div>
+                        <div class="form-group">
+                            <label>Type</label>
+                            <select class="form-control" name="PlatformTypeID" asp-items="@ViewBag.orgType" id="platformtypeid">
+                                <option selected disabled>Select Platform Type</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Link</label>
+                            <input type="text" class="form-control" name="URL" id="url-text" />
+                            <textarea class="hide form-control" id="embed-text-area" name="URL" placeholder="Enter embed code" rows="5"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Icon</label>
+                            <input type="file" class="form-control" asp-for="File" />
+                        </div>
+
+                        <div class="form-group">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-primary" value="Save">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteOrgPlatformModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Delete Link</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <p>Are you sure you want to delete this organisation platform?</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+
+                <form asp-action="DeleteOrganisationPlatform" asp-controller="Dashboard" class="form-inline">
+                    <input type="hidden" name="orgplatformid" id="orgPlatformID" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-danger" value="Delete">
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="orgVideoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Add Organisation Platform</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    
+                </div>
+
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        jQuery(function () {
+            jQuery("body").on("click", ".save-btn", function () {
+                var data = jQuery("#link-form").serializeArray();
+                jQuery.post("/Dashboard/AddPlatform", data, function (response) {
+                    generateBox(data);
+                });
+            });
+
+            jQuery("body").on("click", ".delete-platform-btn", function () {
+                var platformId = jQuery(this).attr("data-platform-id");
+                jQuery("#platformID").val(platformId);
+                jQuery("#deleteLinkModal").modal();
+            });
+
+            jQuery("body").on("click", ".edit-platform-btn", function () {
+                var data = jQuery(this).data();
+
+                jQuery.each(data, function (k, v) {
+                    jQuery("#edit-platform-form #" + k).val(v);
+
+                })
+                jQuery("#editPlatformModal").modal();
+            });
+
+            jQuery("#sortable").sortable({
+                items: "div.items:not(.ui-state-disabled)",
+                stop: function (event, ui) {
+                    var data = [];
+                    jQuery.each(jQuery("#sortable").find(".ui-state-default"), function (k, v) {
+                        var id = jQuery(v).attr("id");
+                        data.push(id);
+                    })
+
+                    savePlatformSort(data);
+                }
+            });
+
+            jQuery("#PlatformTypeID").on("change", function () {
+                var val = jQuery(this).find(":selected").val();
+
+                if (val == 1) {
+                    jQuery("#embed-text-area").removeClass("hide");
+                    jQuery("#url-text").addClass("hide");
+                    $("#embed-text-area").prop('disabled', false);
+                    $("#url-text").prop('disabled', true);
+
+                } else {
+                    jQuery("#embed-text-area").addClass("hide");
+                    jQuery("#url-text").removeClass("hide");
+                    $("#embed-text-area").prop('disabled', true);
+                    $("#url-text").prop('disabled', false);
+                }
+
+            });
+
+        /* Org Platform */
+
+            jQuery("body").on("click", ".edit-org-platform-btn", function (e) {
+                e.preventDefault();
+                var data = jQuery(this).data();
+
+                jQuery.each(data, function (k, v) {
+                    console.log(k);
+                    console.log(v);
+                    jQuery("#edit-org-platform-form #" + k).val(v);
+                    
+                    if (k == "platformtypeid") {
+                        if (v == 1) {
+                            jQuery("#edit-org-platform-form #embed-text-area").removeClass("hide");
+                            jQuery("#edit-org-platform-form #url-text").addClass("hide");
+                            $("#edit-org-platform-form #embed-text-area").prop('disabled', false);
+                            $("#edit-org-platform-form #url-text").prop('disabled', true);
+                        } else {
+                            jQuery("#edit-org-platform-form #embed-text-area").addClass("hide");
+                            jQuery("#edit-org-platform-form #url-text").removeClass("hide");
+                            $("#edit-org-platform-form #embed-text-area").prop('disabled', true);
+                            $("#edit-org-platform-form #url-text").prop('disabled', false);
+                        }
+
+                    }
+
+                    if (k == "embed") {
+                        jQuery("#edit-org-platform-form #embed-text-area").val(v);
+                    } else if (k == "url") {
+                        jQuery("#edit-org-platform-form #url-text").val(v);
+                        console.log(k); console.log(v);
+                    }
+
+                })
+                jQuery("#editOrgPlatformModal").modal();
+            });
+
+            jQuery("body").on("click", ".delete-org-platform-btn", function (e) {
+                e.preventDefault();
+                var platformId = jQuery(this).attr("data-org-platform-id");
+                jQuery("#orgPlatformID").val(platformId);
+                jQuery("#deleteOrgPlatformModal").modal();
+            });
+            
+            $('#orgVideoModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget)
+                var embed = button.data('embed');
+                var title = button.data('title');
+
+                var modal = $(this)
+                modal.find('.modal-body').html(embed);
+                modal.find('.modal-title').text(title)
+            });
+
+            $('#orgVideoModal').on('hide.bs.modal', function (event) {
+
+                var modal = $(this)
+                modal.find('.modal-body').html("");
+            });
+            
+        });
+        var generateBox = function (data) {
+            var a = objectifyForm(data);
+            console.log(a);
+            html = '<div class="col-md-3 col-xs-6 ui-state-default items" id="platform-' + a.PlatformID + '">';
+            html += '    <div class="small-box bg-white">';
+            html += '        <a target="_blank" href="' + a.URL + '">';
+            html += '            <div class="inner">';
+            html += '                <div class="icon">';
+            html += '                    <i class="fa fa-users"></i>';
+            html += '                </div>';
+            html += '                <h2>';
+            html += a.Name;
+            html += '            </h2>';
+            html += '            </div>';
+            html += '        </a>';
+            html += '    </div';
+            html += '</div >';
+
+            jQuery(".link-container").append(html);
+            var data = [];
+            jQuery.each(jQuery("#sortable").find(".ui-state-default"), function (k, v) {
+                var id = jQuery(v).attr("id");
+                data.push(id);
+            })
+
+            savePlatformSort(data);
+
+        };
+
+        var objectifyForm = function (formArray) {
+
+            var returnArray = {};
+            for (var i = 0; i < formArray.length; i++) {
+                returnArray[formArray[i]['name']] = formArray[i]['value'];
+            }
+            return returnArray;
+        }
+
+        var savePlatformSort = function (ids) {
+            var data = {
+                data: JSON.stringify(ids)
+            }
+            jQuery.post('/Dashboard/SavePlatformSort', data, function (response) {
+                console.log(response);
+
+            });
+        }
+
+        var getPlatformSort = function () {
+
+
+            jQuery.get('/Dashboard/GetPlatformSort', function (response) {
+                if (response != null) {
+                    var sortData = JSON.parse(response);
+                    var html = '';
+                    jQuery.each(sortData, function (key, val) {
+                        jQuery.each(jQuery(".ui-state-default"), function (k, v) {
+                            var id = jQuery(v).attr("id");
+
+                            if (id == val) {
+                                html += jQuery("<div />").append(jQuery(v).clone()).html();
+                            }
+                        });
+                    });
+
+                    jQuery.each(sortData, function (key, val) {
+                        jQuery("#" + val).remove();
+                    })
+
+                    jQuery(".platform-container").prepend(html);
+
+
+                }
+            });
+        }
+
+        getPlatformSort();
+    </script>
+}

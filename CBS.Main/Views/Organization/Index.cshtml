@@ -1,0 +1,1048 @@
+﻿@model OrganizationDto
+
+@{
+    ViewData["Title"] = "Organisation Management";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var isSuperAdmin = this.User.IsInRole(ViewBag.superAdmin);
+    var isAdmin = this.User.IsInRole(ViewBag.admin);
+}
+
+<div class="content-wrapper organization">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1 class="head-title">
+            @ViewData["Title"]
+        </h1>
+        <p class="head-description">Details on the Head Office, branches, point of contact at each branch, etc (If there is only one office don’t add any details in the Branches menu).</p>
+    </section>
+    <!-- Main content -->
+    <section class="content container-fluid">
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+
+                <div class="custom-tab-container">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 custom-tab-menu">
+                        <div class="list-group">
+                            <a href="#" class="list-group-item active text-center" id="organisation">
+                                <h4>Head Office Details</h4>
+                            </a>
+                            <a href="#" class="list-group-item text-center" id="orgchart">
+                                <h4>Organisation Chart</h4>
+                            </a>
+                            <a href="#" class="list-group-item text-center" id="branches">
+                                <h4>Branch Management</h4>
+                            </a>
+                            <a href="#" class="list-group-item text-center" id="user-permission">
+                                <h4>User Permissions</h4>
+                            </a>
+                            <a href="#" class="list-group-item text-center" id="org-platform">
+                                <h4>Organisation Platforms</h4>
+                            </a>
+                            @if (isSuperAdmin)
+                            {
+                                <a href="#" class="list-group-item text-center" id="head-office-users">
+                                    <h4>Users</h4>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 custom-tab">
+                        <div class="custom-tab-content active">
+                            <div class="box box-solid">
+                                <div class="form-horizontal">
+                                    <div class="box-header">
+                                        <p>Fill in or edit the details for the Head Office</p>
+                                        <div class="box-tools pull-right">
+                                            @if (isSuperAdmin)
+                                            {
+                                                <button class="btn btn-info" data-target="#organizationModal" data-toggle="modal"><i class="fa fa-home"></i></button>
+
+                                            }
+
+                                        </div>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label" style="font-weight:normal;"></label>
+                                                <div class="col-sm-9">
+                                                    @if (Model.FileUrl != "")
+                                                    {
+                                                        <img class="img-responsive" src="@Model.FileUrl" alt="">
+                                                    }
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label" style="font-weight:normal;">Organisation Name</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label">@Model.OrganizationName</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label" style="font-weight:normal;">Industry</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label">@Model.Industry</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label" style="font-weight:normal;">Phone Number</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label">@Model.AreaCode1Text @Model.PhoneNumber</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label" style="font-weight:normal;">Phone Number 2</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label">@Model.AreaCode2Text @Model.PhoneNumber2</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label" style="font-weight:normal;">Unit No.</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label">@Model.UnitNo</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label" style="font-weight:normal;">Street 1</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label">@Model.StreetOne</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label" style="font-weight:normal;">Street 2</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label">@Model.StreetTwo</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label" style="font-weight:normal;">City</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label">@Model.City</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label" style="font-weight:normal;">State/Province</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label">@Model.StateProvince</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label" style="font-weight:normal;">PostCode/Zip</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label">@Model.PostCodeZip</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label" style="font-weight:normal;">Country</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label">@Model.CountryName</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label" style="font-weight:normal;">Organisation Size</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label">@Model.OrganizationSizeText</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label" style="font-weight:normal;">Organisation Type</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label">@Model.OrganizationTypeIDText</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="custom-tab-content ">
+                            <div class="box box-solid">
+                                <div class="box-header">
+                                    <p>Create or edit the organisational chart with Head Office at the top. Naming each branch office in the structure. Press the “+” sign on the top right corner of each box.</p>
+                                    <p>Branch Admins can create or edit their branch and the organisational chart downstream of them.</p>
+                                </div>
+                                <div class="box-body">
+                                    <div id="chart-container" class="bg-white"></div>
+                                </div>
+                                <div class="box-footer">
+                                    <div class="button-container hide">
+                                        <p>
+                                            <span class="save-notice">Save changes to the chart?</span>
+                                            <button class="btn btn-sm btn-danger cancel-btn">Cancel</button>
+                                            <button class="btn btn-sm btn-info save-btn">Save</button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="custom-tab-content p-r20">
+                            <div class="box-header">
+                                <p style="margin-bottom: 15px;">Click EDIT to add or edit information about each branch office including the point of contact for the ConnectHQ platform. (The point of contact will in turn add the ConnectHQ Users at their location).</p>
+                                @if (isSuperAdmin)
+                                {
+                                    <a class="btn btn-info" asp-action="AddBranch" asp-controller="Organization" asp-route-r="1" asp-route-orgid="@ViewBag.OrgID" asp-route-origin="branches"><i class="fa fa-plus"></i> Add Branch</a>
+                                }
+                            </div>
+                            <div class="box-body">
+                                <table class="table table-responsive table-hover sortingtables ">
+                                    <thead>
+                                        <tr>
+                                            <th>Admin</th>
+                                            <th>Admin Email</th>
+                                            <th>Branch</th>
+                                            <th>Parent Branch</th>
+                                            <th>Address</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        @foreach (var item in ViewBag.Branch)
+                                        {
+                                            @:<tr>
+                                                <td>@item.Admin</td>
+                                                <td>@item.AdminEmail</td>
+                                                <td>@item.OrganizationName</td>
+                                                <td>@Model.OrganizationName</td>
+                                                <td>@item.StreetOne @item.StreetTwo</td>
+                                                <td>
+                                                    @if (isSuperAdmin)
+                                                    {
+                                                        <a asp-action="EditBranch" asp-controller="Organization" asp-route-orgid="@item.OrganizationID" asp-route-r="1" asp-route-origin="branches" class="btn btn-warning btn-sm">Edit</a>
+                                                    }
+                                                </td>
+
+                                                @if (item.OrganizationBranch.Count > 0)
+                                                {
+                                                    foreach (var iBranch in item.OrganizationBranch)
+                                                    {
+                                                    <tr>
+                                                        <td>@iBranch.Admin</td>
+                                                        <td>@iBranch.AdminEmail</td>
+                                                        <td>@iBranch.OrganizationName</td>
+                                                        <td>@item.OrganizationName</td>
+                                                        <td>@iBranch.StreetOne @item.StreetTwo</td>
+                                                        <td>
+                                                            @if (isSuperAdmin)
+                                                            {
+                                                                <a asp-action="EditBranch" asp-controller="Organization" asp-route-orgid="@iBranch.OrganizationID" asp-route-r="1" asp-route-origin="branches" class="btn btn-warning btn-sm">Edit</a>
+                                                            }
+
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                @:</tr>
+                                            }
+                                            }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="custom-tab-content p-r20 ">
+                            <div class="box-header">
+                                @*<p>Add or edit the User Permission levels by either adding additional levels or changing the access granted by each level.</p>*@
+                                <p>Because ConnectHQ contain personal information, different users have different levels of access to that information. </p>
+                            </div>
+                            <div class="box-body user-permission-container">
+                                <div class="text-center">
+                                    <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw text-blue"></i>
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="custom-tab-content p-r20 ">
+                            <div class="box-header">
+                                <p style="margin-bottom: 15px;">
+                                    IT Platforms can be setup at the Organisation, Branch and Individual User levels. Here you can add or edit organisation wide IT platforms that you want each individual user of ConnectHQ to use. (Access levels will be set locally).
+                                </p>
+                                @if (isSuperAdmin)
+                                {
+                                    <a class="btn btn-info" data-toggle="modal" data-target="#orgPlatformModal"><i class="fa fa-plus"></i> Add Organisation Platform</a>
+                                }
+                            </div>
+                            <div class="box-body">
+                                <table class="table table-responsive table-hover" id="org-platform-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Type</th>
+                                            <th>Icon</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="custom-tab-content p-r20 ">
+                            <div class="box-header">
+                                <p>
+                                    Add or edit individual users at Head Office. Including user access levels and which IT platforms they can access.
+                                </p>
+                            </div>
+                            <div class="box-body users">
+                                <div class="text-center">
+                                    <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw text-blue"></i>
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="modal fade" id="organizationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Organisation</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <form class="form-horizontal" id="org-form" asp-action="AddUpdate" asp-controller="Organization" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="OrganizationID" />
+                        <div class="mb-15">
+                            <label asp-for="OrganizationName">Organisation Name</label>
+                            <input type="text" class="form-control" asp-for="OrganizationName" />
+                            <span asp-validation-for="OrganizationName" class="field-validation-error"></span>
+                        </div>
+                        <div class="mb-15">
+                            <label asp-for="IndustryID">Industry</label>
+                            <select class="form-control" asp-items="@ViewBag.industry" asp-for="IndustryID">
+                            </select>
+                            <span asp-validation-for="IndustryID" class="field-validation-error"></span>
+                        </div>
+
+                        <div class="mb-15">
+                            <label asp-for="OrganizationSize">Organisation Size </label>
+                            <select asp-items="@ViewBag.orgSizeList" asp-for="OrganizationSize" class="form-control"></select>
+                            <span asp-validation-for="OrganizationSize" class="field-validation-error"></span>
+                        </div>
+
+                        <div class="row mb-15">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <label asp-for="PhoneNumber" class="col-md-12">Phone Number</label>
+                                    <div class="col-md-6">
+                                        <select class="form-control" asp-for="AreaCode1" asp-items="@ViewBag.CountryCode"></select>
+                                    </div>
+                                    <div class="col-md-6 p-l0">
+                                        <input type="text" class="form-control" asp-for="PhoneNumber" />
+                                    </div>
+                                </div>
+                                <span asp-validation-for="PhoneNumber" class="field-validation-error"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <label asp-for="PhoneNumber2" class="col-md-12">Secondary Phone Number</label>
+                                    <div class="col-md-6">
+                                        <select class="form-control" asp-for="AreaCode2" asp-items="@ViewBag.CountryCode"></select>
+                                    </div>
+                                    <div class="col-md-6 p-l0">
+                                        <input type="text" class="form-control" asp-for="PhoneNumber2" />
+                                    </div>
+                                </div>
+                                <span asp-validation-for="PhoneNumber2" class="field-validation-error"></span>
+                            </div>
+                        </div>
+
+                        <fieldset class="mb-15">
+                            <legend>Address</legend>
+                            <div class="row mb-15">
+
+                                <div class="col-md-12">
+                                    <label>Unit No.</label>
+                                    <input type="text" class="form-control" asp-for="UnitNo" />
+                                    <span asp-validation-for="UnitNo" class="field-validation-error"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-15">
+                                <div class="col-md-6">
+                                    <label>Street 1</label>
+                                    <input type="text" class="form-control" asp-for="StreetOne" />
+                                    <span asp-validation-for="StreetOne" class="field-validation-error"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Street 2</label>
+                                    <input type="text" class="form-control" asp-for="StreetTwo" />
+                                    <span asp-validation-for="StreetTwo" class="field-validation-error"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-15">
+                                <div class="col-md-6">
+                                    <label>City</label>
+                                    <input type="text" class="form-control" asp-for="City" />
+                                    <span asp-validation-for="City" class="field-validation-error"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Zipcode</label>
+                                    <input type="text" class="form-control" asp-for="PostCodeZip" />
+                                    <span asp-validation-for="PostCodeZip" class="field-validation-error"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-15">
+                                <div class="col-md-6">
+                                    <label>State</label>
+                                    <input type="text" class="form-control" asp-for="StateProvince" />
+                                    <span asp-validation-for="StateProvince" class="field-validation-error"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Country</label>
+                                    <select asp-items="@ViewBag.country" asp-for="CountryID" class="form-control"></select>
+                                    <span asp-validation-for="CountryID" class="field-validation-error"></span>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <div class="row mb-15">
+                            <div class="col-md-12">
+                                <label>Organisation Type</label>
+                                @if (Model.OrganizationBranch.Count == 0)
+                                {
+                                    <select asp-items="@ViewBag.orgTypeList" asp-for="OrganizationTypeID" class="form-control"></select>
+                                    <span asp-validation-for="OrganizationTypeID" class="field-validation-error"></span>
+                                }
+                                else
+                                {
+                                    <input type="text" value="@Model.OrganizationTypeIDText" class="form-control" readonly>
+                                    <input type="hidden" asp-for="@Model.OrganizationTypeID" />
+                                }
+                            </div>
+                        </div>
+                        <div class="row mb-15">
+                            <div class="col-md-12">
+                                <label>Organisation Image</label>
+                                <input type="file" class="form-control" name="File" id="file" />
+                                <input type="hidden" asp-for="CropImage" />
+                            </div>
+                        </div>
+                        <div class="row mb-15 pull-right">
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-primary" value="Save">
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary save-org-btn" data-dismiss="modal">Save</button>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="cropModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Crop Profile Image</h4>
+            </div>
+            <div class="modal-body">
+                <div id="image_prev_container">
+                    <img id="imgEmpPhoto" />
+                    <input type="hidden" id="imgBase64Data" />
+                </div>
+                <canvas id="canvas"></canvas>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary cropBtn" data-dismiss="modal">Save Image</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="orgPlatformModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Add Organisation Platform</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <form class="form-horizontal" asp-controller="Dashboard" asp-action="AddOrganisationPlatform" enctype="multipart/form-data">
+                        <input type="hidden" name="redirectUrl" value="/Organization/Index" />
+                        <div class="form-group">
+                            <label>Title</label>
+
+                            <input type="text" class="form-control" name="Name" />
+                        </div>
+                        <div class="form-group">
+                            <label>Type</label>
+                            <select class="form-control" name="PlatformTypeID" asp-items="@ViewBag.orgType" id="PlatformTypeID">
+                                <option selected disabled>Select Platform Type</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="org-plat-type-label">Link</label>
+                            <input type="text" class="form-control" name="URL" id="url-text" />
+                            <textarea class="hide form-control" id="embed-text-area" name="URL" placeholder="Enter embed code" rows="5"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Icon</label>
+                            <input type="file" class="form-control" name="File" />
+                        </div>
+
+                        <div class="form-group">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-primary" value="Save">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editOrgPlatformModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Edit Platform Link</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <form class="form-horizontal" id="edit-org-platform-form" asp-controller="Dashboard" asp-action="EditOrganisationPlatform" enctype="multipart/form-data">
+                        <input type="hidden" name="redirectUrl" value="/Organization/Index" />
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="hidden" id="platformid" name="OrgPlatformID" />
+                            <input type="text" class="form-control" name="Name" id="name" />
+                        </div>
+                        <div class="form-group">
+                            <label>Type</label>
+                            <select class="form-control" name="PlatformTypeID" asp-items="@ViewBag.orgType" id="platformtypeid">
+                                <option selected disabled>Select Platform Type</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Link</label>
+                            <input type="text" class="form-control" name="URL" id="url-text" />
+                            <textarea class="hide form-control" id="embed-text-area" name="URL" placeholder="Enter embed code" rows="5"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Icon</label>
+                            <input type="file" class="form-control" name="File" />
+                        </div>
+
+                        <div class="form-group">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-primary" value="Save">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteOrgPlatformModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Delete Link</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <p>Are you sure you want to delete this organisation platform?</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+
+                <form asp-action="DeleteOrganisationPlatform" asp-controller="Dashboard" class="form-inline">
+                    <input type="hidden" name="orgplatformid" id="orgPlatformID" />
+                    <input type="hidden" name="redirectUrl" value="/Organization/Index" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-danger" value="Delete">
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="orgVideoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Organisation Platform</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Invite a User</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="col-md-12">
+                    <form asp-route-returnUrl="/Dashboard/Index" method="post" id="register-form">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group has-feedback">
+                            <input name="FirstName" class="form-control" placeholder="First name">
+                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <input name="LastName" class="form-control" placeholder="Last name">
+                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <input name="Email" class="form-control" placeholder="Email">
+                            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <select class="form-control" style="width:44.4%; display: inline" name="areaCode1" asp-items="@ViewBag.CountryCode"></select>
+                            <input name="Mobile" id="Mobile" class="form-control" style="width:55%; display: inline" placeholder="Mobile" onkeyup="check(); return false;">
+                            <span class="glyphicon glyphicon-phone form-control-feedback"></span>
+                            <span class="field-validation-error" id="message"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <label asp-for="OrganizationID">Organization</label>
+                            <select asp-for="OrganizationID" asp-items="@ViewBag.branchDD" class="form-control"></select>
+                            <span asp-validation-for="OrganizationID" class="field-validation-error"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <label asp-for="Role">Role</label>
+                            <select asp-for="Role" asp-items="@ViewBag.roles" class="form-control"></select>
+                            <span asp-validation-for="Role" class="field-validation-error"></span>
+                        </div>
+                        <input id="sendInvite" type="submit" class="btn btn-primary" value="Send Invite"><i class="hide fa fa-spinner fa-pulse fa-2x fa-fw" style="position:absolute; color: #00c0ef;"></i>
+                    </form>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        var data = {};
+        var orgid = "@ViewBag.OrgID";
+        var allow = @ViewBag.canModifyOrg;
+
+        jQuery(function () {
+            GetChart();
+            GetUsersPermissions();
+            GetUsers(0,1);
+
+            jQuery("body").on("click", ".save-org-btn", function () {
+                var data = jQuery("#org-form").serialize();
+                console.log(data);
+                jQuery.post("/Organization/AddOrganization", data, function (response) {
+                    if (response == "success") {
+                        location.reload();
+
+                    }
+
+                });
+            });
+
+            jQuery.post("/Organization/GetOrganizationPlatform", function (response) {
+
+                if (response.length > 0) {
+                    var html = '';
+                    jQuery.each(response, function (k, v) {
+
+                        var icon = v.iconUrl != null ? '<img src="' + v.iconUrl + '" style="width: 50px;" />' : '';
+                        html += '<tr>';
+                        html += '<td>' + v.name + '</td>';
+
+                        if (v.platformTypeID == 1) {
+                            html += '<td><a href="#" data-toggle="modal" data-target="#orgVideoModal" data-embed=\''+ v.url +'\' data-title="'+ v.name +'">' + v.platformType + '</a></td>';
+                            html += '<td>' + icon + '</td>';
+                            html += '<td><a class="btn btn-warning btn-sm edit-org-platform-btn" data-PlatformID="' + v.orgPlatformID + '" data-PlatformTypeID="' + v.platformTypeID + '" data-Name="' + v.name + '" data-embed=\''+ v.url + '\' data-Icon="' + v.icon + '" href="#">Edit</a> ';
+                            html += '<a class="btn btn-danger btn-sm delete-org-platform-btn" data-org-platform-id="' + v.orgPlatformID + '" href="#">Archive</a></td>';
+                        } else {
+                            html += '<td><a target="_blank" href="'+ v.url +'">' + v.platformType + '</a></td>';
+                            html += '<td>' + icon + '</td>';
+                            html += '<td><a class="btn btn-warning btn-sm edit-org-platform-btn" data-PlatformID="' + v.orgPlatformID + '" data-PlatformTypeID="' + v.platformTypeID + '" data-Name="' + v.name + '" data-URL="' + v.url + '" data-Icon="' + v.icon + '" href="#">Edit</a> ';
+                            html += '<a class="btn btn-danger btn-sm delete-org-platform-btn" data-org-platform-id="' + v.orgPlatformID + '" href="#">Archive</a></td>';
+                        }
+
+                        html += '</tr>';
+                    });
+
+                    jQuery("#org-platform-table tbody").html(html);
+                }
+            });
+
+            jQuery("body").on("change", "#file", function (e) {
+                console.log(e.target.files);
+                readFile(e.target);
+            });
+
+            jQuery(".cropBtn").on("click", function () {
+                cropImage();
+
+            });
+
+            var dragZoneData = null;
+            $('#chart-container').on("nodedrop.orgchart", function (draggedNode, dragZone, dropZone) {
+
+                if (dragZoneData != null) {
+                    jQuery(".save-notice").html("You must apply first your previous before you can update the chart again.");
+                    jQuery(".button-container").removeClass("hide");
+
+                    return false;
+                }
+
+                dragZoneData = dragZone;
+                var dragNode = dragZone.draggedNode[0];
+                var dropZone = dragZone.dropZone[0];
+
+                var dragNodeOrgId = jQuery(dragNode).data('orgid');
+                var dropZoneOrgType = jQuery(dropZone).data('orgtype');
+                var dropZoneOrgId = jQuery(dropZone).data('orgid');
+
+                if (dropZoneOrgType != 1) {
+                    return false;
+                }
+
+                jQuery(".button-container").removeClass("hide");
+
+
+            });
+
+            jQuery(".save-btn").on("click", function () {
+                var dragNode = dragZoneData.draggedNode[0];
+                var dropZone = dragZoneData.dropZone[0];
+
+                var dragNodeOrgId = jQuery(dragNode).data('orgid');
+                var dropZoneOrgType = jQuery(dropZone).data('orgtype');
+                var dropZoneOrgId = jQuery(dropZone).data('orgid');
+
+                var data = {
+                    OrganizationID: dragNodeOrgId,
+                    ParentID: dropZoneOrgId
+                }
+
+                jQuery.post("/Organization/EditBranchParent", { org: data }, function (response) {
+                    jQuery(".button-container").addClass("hide");
+                })
+            });
+
+            jQuery(".cancel-btn").on("click", function () {
+                dragZoneData = null;
+                jQuery(".button-container").addClass("hide");
+            });
+
+            var tab = getUrlParameter("tab");
+            jQuery("#" + tab).trigger("click");
+
+            /* Org Platform */
+
+            jQuery("body").on("click", ".edit-org-platform-btn", function (e) {
+                e.preventDefault();
+                var data = jQuery(this).data();
+
+                jQuery.each(data, function (k, v) {
+                    jQuery("#edit-org-platform-form #" + k).val(v);
+
+                    if (k == "platformtypeid") {
+                        if (v == 1) {
+                            jQuery("#edit-org-platform-form #embed-text-area").removeClass("hide");
+                            jQuery("#edit-org-platform-form #url-text").addClass("hide");
+                            $("#edit-org-platform-form #embed-text-area").prop('disabled', false);
+                            $("#edit-org-platform-form #url-text").prop('disabled', true);
+                        } else {
+                            jQuery("#edit-org-platform-form #embed-text-area").addClass("hide");
+                            jQuery("#edit-org-platform-form #url-text").removeClass("hide");
+                            $("#edit-org-platform-form #embed-text-area").prop('disabled', true);
+                            $("#edit-org-platform-form #url-text").prop('disabled', false);
+                        }
+
+                    }
+
+                    if (k == "embed") {
+                        jQuery("#edit-org-platform-form #embed-text-area").val(v);
+                    } else if (k == "url") {
+                        jQuery("#edit-org-platform-form #url-text").val(v);
+                    }
+
+                })
+                jQuery("#editOrgPlatformModal").modal();
+            });
+
+
+            jQuery("#PlatformTypeID").on("change", function () {
+                var val = jQuery(this).find(":selected").val();
+
+                if (val == 1) {
+                    jQuery("#embed-text-area").removeClass("hide");
+                    jQuery("#url-text").addClass("hide");
+                    $("#embed-text-area").prop('disabled', false);
+                    $("#url-text").prop('disabled', true);
+                    jQuery(".org-plat-type-label").html("Embed Code");
+                } else {
+                    jQuery("#embed-text-area").addClass("hide");
+                    jQuery("#url-text").removeClass("hide");
+                    $("#embed-text-area").prop('disabled', true);
+                    $("#url-text").prop('disabled', false);
+                    jQuery(".org-plat-type-label").html("Link");
+                }
+
+            });
+
+            jQuery("body").on("click", ".delete-org-platform-btn", function (e) {
+                e.preventDefault();
+                var platformId = jQuery(this).attr("data-org-platform-id");
+                jQuery("#orgPlatformID").val(platformId);
+                jQuery("#deleteOrgPlatformModal").modal();
+            });
+
+            $('#orgVideoModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget)
+                var embed = button.data('embed');
+                var title = button.data('title');
+
+                var modal = $(this)
+                modal.find('.modal-body').html(embed);
+                modal.find('.modal-title').text(title)
+            });
+
+            $('#orgVideoModal').on('hide.bs.modal', function (event) {
+
+                var modal = $(this)
+                modal.find('.modal-body').html("");
+            });
+
+            jQuery("body").on("change", ".org-dropdown", function () {
+                var val = jQuery(this).val();
+                jQuery(".users").prepend('<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw text-blue table-loader"></i>');
+                GetUsers(val, 1);
+            });
+
+            jQuery("body").on("submit", "#register-form", function (e) {
+                e.preventDefault();
+                jQuery(".fa-spinner").removeClass("hide");
+
+                jQuery(".validation-summary-valid ul, .validation-summary-errors ul").html("");
+                var data = jQuery(this).serialize();
+                jQuery.post("/Account/AjaxRegister", data, function (response) {
+                    if (response.succeeded == false) {
+                        html = '';
+                        jQuery.each(response.errors, function (k, v) {
+                            html += '<li>' + v.description + '</li>';
+                        });
+
+                        jQuery(".validation-summary-valid ul, .validation-summary-errors ul").html(html);
+                        jQuery(".fa-spinner").addClass("hide");
+
+                    } else {
+                        jQuery("#registerResultModal .modal-body > div").html("Successfully added a new user.");
+
+                        jQuery("#registerModal").modal("hide");
+                        jQuery("#registerResultModal").modal();
+                        jQuery("#registerModal input[type='text'], #registerModal input[type='email'], #registerModal input[type='password']").val("");
+                        window.location.replace('/Organization/Index?tab=head-office-users');
+
+                    }
+                });
+
+            });
+
+        });
+
+        var oc = $('#chart-container').orgchart({
+            'data': data,
+            'draggable': true,
+            'nodeContent': 'title',
+            'zoom': true,
+            'pan': true,
+            'createNode': function ($node, dataList) {
+                jQuery($node[0]).attr("data-orgid", dataList.orgId);
+                jQuery($node[0]).attr("data-orgType", dataList.orgType);
+                if ($node.is('.drill-down')) {
+                    var assoClass = dataList.className.match(/parentBranch/)[0];
+                    var drillDownIcon = $('<i>', {
+                        'class': 'fa fa-arrow-circle-down drill-icon',
+                        'click': function () {
+                            if (!$('#chart-container').find('.orgchart.' + assoClass).length) {
+                                oc.init({ 'data': data.children[0] });
+                            } else {
+                                $('#chart-container').find('.orgchart.' + assoClass).removeClass('hidden');
+                            }
+                        }
+                    });
+
+                } else if ($node.is('.drill-up')) {
+                    var assoClass = dataList.className.match(/asso-\w+/)[0];
+                    var drillUpIcon = $('<i>', {
+                        'class': 'fa fa-arrow-circle-up drill-icon',
+                        'click': function () {
+                            $('#chart-container').find('.orgchart:visible').addClass('hidden').end()
+                                .find('.drill-down.' + assoClass).closest('.orgchart').removeClass('hidden');
+                        }
+                    });
+                }
+
+                if (allow == 1) {
+                    $node.append('<div class="control"></div>');
+
+                    var edit = $('<a>', {
+                        'class': 'fa fa-edit',
+                        'href': '/Organization/EditBranch?r=1&orgid=' + dataList.orgId,
+                        'click': function () {
+                        }
+                    });
+
+                    var add = $('<a>', {
+                        'class': 'fa fa-plus',
+                        'href': '/Organization/AddBranch?r=1&orgid=' + dataList.orgId,
+                        'click': function () {
+
+                        }
+                    });
+
+                    $node.find(".control").append(edit);
+
+                    if (dataList.orgType == 1) {
+                        $node.find(".control").append(add);
+                    }
+
+                    $node.hover(
+                        function () {
+                            jQuery(this).find(".control").show();
+                        }, function () {
+                            jQuery(this).find(".control").hide();
+                        }
+                    );
+
+                }
+            }
+        });
+
+        var GetChart = function () {
+            jQuery.post("/Organization/GetChart", { orgid: orgid }, function (response) {
+                data.children = [];
+
+                if (response.parent != null) {
+                    data.name = response.parent.organizationName;
+                    data.title = response.parent.industry;
+                    data.orgId = response.parent.organizationID;
+                    data.orgType = response.parent.organizationTypeID;
+                    data.className = "parentBranch parentOrg org-" + data.orgId;
+
+                }
+
+                if (response.branch != null) {
+                    var childData = getChildren(response.branch);
+                    data.children = childData;
+
+                }
+
+                oc.init({ 'data': data });
+            }, "json");
+
+        }
+
+        var GetUsersPermissions = function () {
+            jQuery.post("/User/GetAllUserPermissionView", function (response) {
+                if (response != null) {
+                    jQuery(".user-permission-container").html(response);
+                    jQuery(".sortingtables").dataTable();
+                }
+            });
+        }
+
+        var GetUsers = function (orgid, returnUrl) {
+            jQuery.post("/User/GetUsersView", { orgid: orgid, returnUrl: returnUrl}, function (response) {
+                if (response != null) {
+                    jQuery(".users").html(response);
+                    jQuery(".sortingtables").dataTable();
+                }
+            });
+
+        }
+
+        function check() {
+
+            var mobile = document.getElementById("Mobile");
+
+            var message = document.getElementById("message");
+
+            if (mobile.value.length < 9 && mobile.value.length > 0) {
+
+                message.innerHTML = "Phone number should be minimum of 9 digits.";
+                document.getElementById("sendInvite").disabled = true;
+            }
+            else {
+
+                message.innerHTML = "";
+                document.getElementById("sendInvite").disabled = false;
+            }
+        }
+
+        $(function () {
+            $('#Mobile').on('keydown', function (e) { -1 !== $.inArray(e.keyCode, [46, 8, 9, 27, 13, 110]) || (/65|67|86|88/.test(e.keyCode) && (e.ctrlKey === true || e.metaKey === true)) && (!0 === e.ctrlKey || !0 === e.metaKey) || 35 <= e.keyCode && 40 >= e.keyCode || (e.shiftKey || 48 > e.keyCode || 57 < e.keyCode) && (96 > e.keyCode || 105 < e.keyCode) && e.preventDefault() });
+        })
+    </script>
+}

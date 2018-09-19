@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <UserSecretsId>aspnet-SureComply.OnePassport.Web-24D381A2-00F0-4183-9C48-19B245F09F48</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ApiControllers\**" />
+    <Compile Remove="Areas\**" />
+    <Content Remove="ApiControllers\**" />
+    <Content Remove="Areas\**" />
+    <EmbeddedResource Remove="ApiControllers\**" />
+    <EmbeddedResource Remove="Areas\**" />
+    <None Remove="ApiControllers\**" />
+    <None Remove="Areas\**" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="DotNetCore.NPOI" Version="1.0.2" />
+    <PackageReference Include="IdentityServer4.AspNetIdentity" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" PrivateAssets="All" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="2.4.0" />
+    <PackageReference Include="WindowsAzure.Storage" Version="9.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
+    <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.0" />
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ApiController\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\CBS-COMMON-LIB\CBS.Common.Services.csproj" />
+    <ProjectReference Include="..\CBS.Data.Repository\CBS.Data.Repository.csproj" />
+    <ProjectReference Include="..\CBS.Data\CBS.Data.csproj" />
+    <ProjectReference Include="..\CBS.Dto\CBS.Dto.csproj" />
+    <ProjectReference Include="..\CBS.Main.Services\CBS.Main.Services.csproj" />
+  </ItemGroup>
+
+</Project>

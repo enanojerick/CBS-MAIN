@@ -1,0 +1,254 @@
+﻿@model UserDto
+@{
+    ViewData["Title"] = "Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+<div class="content-wrapper dashboard">
+    <section class="content-header">
+        <h1>
+            @ViewData["Title"]
+        </h1>
+    </section>
+    <section class="content container-fluid">
+        <div class="box box-solid">
+            <div class="box-header">
+                @if (ViewBag.Origin == 1)
+                {
+                <a class="btn btn-info" asp-action="Index" asp-controller="Organization" asp-route-tab="head-office-users"><i class="fa fa-reply"></i> Back to List of Users</a>
+                }
+                else
+                {
+                <a class="btn btn-info" asp-action="Index" asp-controller="Location" asp-route-tab="location-users"><i class="fa fa-reply"></i> Back to List of Users</a>
+                }
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-solid">
+                    <div class="box-header">
+
+                    </div>
+                    <div class="box-body">
+                        <div class="col-md-12">
+                            <form asp-controller="User" asp-route-r="@ViewBag.Origin" asp-action="Edit" method="post" id="register-form">
+                                <input type="hidden" name="redirectUrl" value="@ViewBag.returnUrl" />
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <input type="hidden" asp-for="UserID" />
+                                <div class="form-group has-feedback">
+                                    <label asp-for="FirstName">First Name</label>
+                                    <input asp-for="FirstName" class="form-control" placeholder="First name">
+                                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                                </div>
+                                <div class="form-group has-feedback">
+                                    <label asp-for="LastName">Last Name</label>
+                                    <input asp-for="LastName" class="form-control" placeholder="Last name">
+                                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                                </div>
+                                <div class="form-group has-feedback">
+                                    <label asp-for="Email">Email</label>
+                                    <input asp-for="Email" class="form-control" placeholder="Email" readonly>
+                                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                                </div>
+                                <div class="form-group has-feedback">
+                                    <label asp-for="Mobile" style="display:block">Mobile</label>
+                                    <select class="form-control" style="width:20%; display: inline" name="areaCode1" asp-items="@ViewBag.CountryCode"></select>
+                                    <input asp-for="Mobile" class="form-control" style="width:79.7%; display: inline" id="Mobile" placeholder="Mobile" onkeyup="check(); return false;">
+                                    <span class="glyphicon glyphicon-phone form-control-feedback"></span>
+                                    <span class="field-validation-error" id="message"></span>
+                                </div>
+
+
+
+                                <div class="mb-15">
+                                    <div class="form-group has-feedback">
+                                        <label asp-for="Role">Role</label>
+                                        <select asp-for="Role" asp-items="@ViewBag.roles" class="form-control"></select>
+                                        <span asp-validation-for="Role" class="field-validation-error"></span>
+                                    </div>
+                                    @*<label for="role">Roles</label>
+                                    <ul class="list-unstyled">
+                                        @foreach (var item in ViewBag.roles)
+                                        {
+                                            List<string> userRole = ViewBag.userRoles;
+                                            var isChecked = userRole.Contains(item.Name);
+                                            <li>
+                                                <input type="checkbox" value="@item.Name" name="role[]" checked="@isChecked" /> @item.Name
+                                            </li>
+                                        }
+                                    </ul>*@
+                                </div>
+
+                                <input type="submit" class="btn btn-primary" id="sendInvite" value="Save">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+
+                <div class="box box-solid">
+                    <div class="box-body">
+                        <h5><strong>Assign organisation app to this user.</strong></h5>
+                        <div class="col-md-4 org-app-container">
+                            <h2>Organisation App</h2>
+                            <ul class="org-app">
+                                @foreach (var item in ViewBag.OrgApp)
+                                {
+                                    @if (true)
+                                    {
+
+                                    }
+                                    <li class="info-box custom-box" data-userid="@Model.UserID" data-orgId="@item.OrgAppID">
+                                        <div class="action-container"><i class="fa fa-plus"></i></div>
+                                        <div class="info-box-icon">
+                                            @if (item.Applications.Icon != null)
+                                            {
+                                                <img src="@item.Applications.Icon" />
+                                            }
+                                            else
+                                            {
+                                                <i class="fa">@item.Applications.AppName.Substring(0, 1)</i>
+                                            }
+                                        </div>
+                                        <div class="block">
+                                            @item.Applications.AppName
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="col-md-1 text-center arrow-container">
+                            <i class="fa fa-chevron-right fa-3x"></i>
+                        </div>
+                        <div class="col-md-4 user-app-container">
+                            <h2>User Assigned App</h2>
+                            <ul class="user-app">
+                                @if (ViewBag.userApp != null)
+                                {
+                                    @foreach (var item in ViewBag.userApp)
+                                    {
+
+                                        <li class="info-box custom-box" data-userid="@Model.UserID" data-userorgappid="@item.UserOrgAppID" data-orgId="@item.OrgAppID">
+                                            <div class="action-container"><i class="fa fa-minus"></i></div>
+                                            <div class="info-box-icon">
+                                                @if (item.OrgApps.Applications.Icon != null)
+                                                {
+                                                    <img src="@item.OrgApps.Applications.Icon" />
+                                                }
+                                                else
+                                                {
+                                                    <i class="fa">@item.OrgApps.Applications.AppName.Substring(0, 1)</i>
+                                                }
+                                            </div>
+                                            <div class="block">
+                                                @item.OrgApps.Applications.AppName
+                                            </div>
+                                        </li>
+                                    }
+                                }
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+@section Scripts{
+    <script>
+        jQuery(function () {
+
+            var $userApp = jQuery(".user-app");
+            var $orgApp = jQuery(".org-app");
+
+            jQuery("body").on("click", ".org-app li", function () {
+                var item = jQuery(this);
+                AddApp(item);
+
+            });
+
+
+            jQuery("body").on("click", ".user-app li", function () {
+                var item = jQuery(this);
+                RemoveApp(item);
+
+            });
+
+            var addIcon = '<i class="fa fa-plus"></i>';
+            var minusIcon = '<i class="fa fa-minus"></i>';
+            var clicked = false;
+            var AddApp = function ($item) {
+                var data = {
+                    UserID: $item.data("userid"),
+                    OrgAppID: $item.data("orgid")
+
+                };
+
+                if (!clicked) {
+                    clicked = true;
+                    $item.hide(function () {
+                        $item.find(".action-container").html(minusIcon);
+                        $item.appendTo($userApp).fadeIn(function () {
+                        });
+                    });
+
+                    jQuery.post("/User/AssignApp", data, function (response) {
+                        if (response > 0) {
+                            $item.attr("data-userorgappid", response);
+                        }
+                        clicked = false;
+                    });
+                }
+            }
+
+            var RemoveApp = function ($item) {
+
+                var data = {
+                    UserID: $item.data("userid"),
+                    UserOrgAppID: $item.data("userorgappid")
+
+                };
+                $item.hide(function () {
+                    $item.find(".action-container").html(addIcon);
+                    $item.appendTo($orgApp).fadeIn(function () {
+                    });
+                });
+
+                jQuery.post("/User/RemoveUserApp", data, function (response) {
+                    if (response == "success") {
+
+
+                    }
+                });
+
+            }
+        });
+
+        function check() {
+
+            var mobile = document.getElementById("Mobile");
+
+            var message = document.getElementById("message");
+
+            if (mobile.value.length < 9 && mobile.value.length > 0) {
+
+                message.innerHTML = "Phone number should be minimum of 9 digits.";
+                document.getElementById("sendInvite").disabled = true;
+            }
+            else {
+
+                message.innerHTML = "";
+                document.getElementById("sendInvite").disabled = false;
+            }
+        }
+
+        $(function () {
+            $('#Mobile').on('keydown', function (e) { -1 !== $.inArray(e.keyCode, [46, 8, 9, 27, 13, 110]) || (/65|67|86|88/.test(e.keyCode) && (e.ctrlKey === true || e.metaKey === true)) && (!0 === e.ctrlKey || !0 === e.metaKey) || 35 <= e.keyCode && 40 >= e.keyCode || (e.shiftKey || 48 > e.keyCode || 57 < e.keyCode) && (96 > e.keyCode || 105 < e.keyCode) && e.preventDefault() });
+        })
+    </script>
+}

@@ -1,0 +1,305 @@
+﻿@model OrganizationDto
+
+@{
+    ViewData["Title"] = "Edit Branch";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper dashboard">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            @ViewData["Title"]
+        </h1>
+    </section>
+    <!-- Main content -->
+    <section class="content container-fluid">
+        <div class="box box-solid">
+            <div class="box-header">
+                @if (ViewBag.Origin == 1)
+                {
+                <a class="btn btn-info" asp-action="Index" asp-controller="Organization" asp-route-tab="@ViewBag.Tab"><i class="fa fa-reply"></i> Back to Organisation Management</a>
+                }
+                else
+                {
+                <a class="btn btn-info" asp-action="Index" asp-controller="Location" asp-route-tab="@ViewBag.Tab"><i class="fa fa-reply"></i> Back to My Location Management</a>
+                }
+            </div>
+        </div>
+        <div class="box box-solid">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <form class="form-horizontal" id="org-form" asp-action="EditBranch" asp-controller="Organization" asp-route-r="@ViewBag.Origin" asp-route-origin="@ViewBag.Tab" enctype="multipart/form-data">
+                            <input type="hidden" asp-for="OrganizationID" />
+                            <input type="hidden" asp-for="ParentID" />
+                            <div class="mb-15">
+                                <label asp-for="OrganizationName">Organisation Name</label>
+                                <input type="text" class="form-control" asp-for="OrganizationName" />
+                                <span asp-validation-for="OrganizationName" class="field-validation-error"></span>
+                            </div>
+                            <div class="mb-15">
+                                <label asp-for="IndustryID">Industry</label>
+                                <select class="form-control" asp-items="@ViewBag.industry" asp-for="IndustryID"></select>
+                                <span asp-validation-for="IndustryID" class="field-validation-error"></span>
+                            </div>
+
+                            <div class="mb-15">
+                                <label asp-for="OrganizationSize">Organisation Size </label>
+                                <select asp-items="@ViewBag.orgSizeList" asp-for="OrganizationSize" class="form-control"></select>
+                                <span asp-validation-for="OrganizationSize" class="field-validation-error"></span>
+                            </div>
+
+                            <div class="row mb-15">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <label asp-for="PhoneNumber" class="col-md-12">Phone Number</label>
+                                        <div class="col-md-6">
+                                            <select class="form-control" asp-for="AreaCode1" asp-items="@ViewBag.CountryCode"></select>
+                                        </div>
+                                        <div class="col-md-6 p-l0">
+                                            <input type="text" class="form-control" asp-for="PhoneNumber" />
+                                        </div>
+                                    </div>
+                                    <span asp-validation-for="PhoneNumber" class="field-validation-error"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <label asp-for="PhoneNumber2" class="col-md-12">Secondary Phone Number</label>
+                                        <div class="col-md-6">
+                                            <select class="form-control" asp-for="AreaCode2" asp-items="@ViewBag.CountryCode"></select>
+                                        </div>
+                                        <div class="col-md-6 p-l0">
+                                            <input type="text" class="form-control" asp-for="PhoneNumber2" />
+                                        </div>
+                                    </div>
+                                    <span asp-validation-for="PhoneNumber2" class="field-validation-error"></span>
+                                </div>
+                            </div>
+
+                            <fieldset class="mb-15">
+                                <legend>Address</legend>
+                                <div class="row mb-15">
+
+                                    <div class="col-md-12">
+                                        <label>Unit No.</label>
+                                        <input type="text" class="form-control" asp-for="UnitNo" />
+                                        <span asp-validation-for="UnitNo" class="field-validation-error"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-15">
+                                    <div class="col-md-6">
+                                        <label>Street 1</label>
+                                        <input type="text" class="form-control" asp-for="StreetOne" />
+                                        <span asp-validation-for="StreetOne" class="field-validation-error"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Street 2</label>
+                                        <input type="text" class="form-control" asp-for="StreetTwo" />
+                                        <span asp-validation-for="StreetTwo" class="field-validation-error"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-15">
+                                    <div class="col-md-6">
+                                        <label>City</label>
+                                        <input type="text" class="form-control" asp-for="City" />
+                                        <span asp-validation-for="City" class="field-validation-error"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Zipcode</label>
+                                        <input type="text" class="form-control" asp-for="PostCodeZip" />
+                                        <span asp-validation-for="PostCodeZip" class="field-validation-error"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-15">
+                                    <div class="col-md-6">
+                                        <label>State</label>
+                                        <input type="text" class="form-control" asp-for="StateProvince" />
+                                        <span asp-validation-for="StateProvince" class="field-validation-error"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Country</label>
+                                        <select asp-items="@ViewBag.country" asp-for="CountryID" class="form-control"></select>
+                                        <span asp-validation-for="CountryID" class="field-validation-error"></span>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="row mb-15">
+                                <div class="col-md-6">
+                                    <label>Organisation Type</label>
+                                    @if (Model.OrganizationBranch.Count == 0)
+                                    {
+                                        <select asp-items="@ViewBag.orgTypeList" asp-for="OrganizationTypeID" class="form-control"></select>
+                                        <span asp-validation-for="OrganizationTypeID" class="field-validation-error"></span>
+                                    }
+                                    else
+                                    {
+                                        <input type="text" value="@Model.OrganizationTypeIDText" class="form-control" readonly>
+                                        <input type="hidden" asp-for="@Model.OrganizationTypeID" />
+                                    }
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Organisation Image</label>
+                                    <input type="file" class="form-control" name="File" id="file" />
+                                    <input type="hidden" asp-for="CropImage" />
+                                </div>
+                            </div>
+                            <div class="row mb-15 pull-right">
+                                <div class="col-md-12">
+                                    <input type="submit" class="btn btn-primary" value="Save">
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+@section Scripts{
+    <script>
+        jQuery(function () {
+            jQuery("body").on("click", ".save-org-btn", function () {
+                var data = jQuery("#org-form").serialize();
+                console.log(data);
+                jQuery.post("/Organization/AddOrganization", data, function (response) {
+                    if (response == "success") {
+                        location.reload();
+
+                    }
+
+                });
+            });
+
+
+            jQuery("body").on("change", "#file", function (e) {
+                console.log(e.target.files);
+                readFile(e.target);
+            });
+
+            jQuery(".cropBtn").on("click", function () {
+                cropImage();
+
+            });
+        });
+
+        var img = {
+            jcropApi: '',
+            imageCropWidth: 0,
+            imageCropHeight: 0,
+            cropPointX: 0,
+            cropPointY: 0
+        };
+
+        var readFile = function (input) {
+
+            if (input.files && input.files[0]) {
+
+                var reader = new FileReader();
+                if (img.jcropApi != '') {
+                    img.jcropApi.destroy();
+
+                }
+
+                reader.onload = function (e) {
+
+                    jQuery("#cropModal").modal({
+                        backdrop: 'static'
+                    });
+
+                    $('#imgEmpPhoto').attr('src', "");
+
+                    var imgs = $('#imgEmpPhoto').attr('src', e.target.result);
+                    var width = imgs[0].height;
+                    var height = imgs[0].width;
+
+                    initCrop();
+
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        var initCrop = function () {
+            var box_width = $('#image_prev_container').width();
+
+            $('#imgEmpPhoto').Jcrop({
+                setSelect: [0, 0, 320],
+                minSize: [52, 140],
+                aspectRatio: 4 / 1,
+                keySupport: false,
+                boxWidth: box_width,
+                onChange: setCoordsAndImgSize,
+                aspectRatio: 1,
+                onSelect: setCoordsAndImgSize
+
+            }, function () { img.jcropApi = this });
+        }
+
+        var setCoordsAndImgSize = function (e) {
+            console.log(img);
+            img.imageCropWidth = e.w;
+            img.imageCropHeight = e.h;
+            img.cropPointX = e.x;
+            img.cropPointY = e.y;
+        }
+
+        var cropImage = function () {
+            console.log(img);
+            if (img.imageCropWidth == 0 && img.imageCropHeight == 0) {
+
+                alert("Please select crop area.");
+
+                return;
+
+            }
+
+            var imgs = $("#imgEmpPhoto").attr("src");
+
+            showCroppedImage();
+
+        }
+
+        var showCroppedImage = function () {
+
+            var x1 = img.cropPointX;
+
+            var y1 = img.cropPointY;
+
+            var width = img.imageCropWidth;
+
+            var height = img.imageCropHeight;
+
+            var canvas = $("#canvas")[0];
+
+            var context = canvas.getContext('2d');
+
+            var imgs = new Image();
+
+            imgs.onload = function () {
+
+                canvas.height = height;
+
+                canvas.width = width;
+
+                context.drawImage(imgs, x1, y1, width, height, 0, 0, width, height);
+                console.log(canvas);
+                console.log(canvas.toDataURL());
+                $('#CropImage').val(canvas.toDataURL());
+
+                $("#canvas").hide();
+            };
+
+            imgs.src = $('#imgEmpPhoto').attr("src");
+
+        }
+    </script>
+}

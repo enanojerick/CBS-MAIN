@@ -1,0 +1,264 @@
+﻿@model RegisterViewModelAjax
+@{
+    ViewData["Title"] = "Users";
+    Layout = "~/Views/User/_Layout.cshtml";
+}
+
+<section class="content container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+ 
+            <div class="box box-solid">
+                <div class="box-body">
+                    <table class="table table-responsive table-hover">
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Roles</th>
+                            <th></th>
+                        </tr>
+                        <tbody>
+                            @foreach (var item in ViewBag.users)
+                            {
+                                <tr>
+                                    <td>@item.FirstName @item.LastName</td>
+                                    <td>@item.Email</td>
+                                    <td>Admin</td>
+                                    <td><a asp-action="Edit" asp-controller="User" asp-route-identityid="@item.IdentityID" class="btn btn-warning btn-sm">Edit</a> 
+                                        <form class="delete-form" id="delete-employee-form" asp-action="Delete" asp-controller="User">
+                                            <input type="hidden" value="@item.IdentityID" name="IdentityID" />
+                                            <input type="submit" class="btn btn-sm btn-danger delete-btn" value="Archive" />
+                                        </form>
+                                    </td>
+                                </tr>
+
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Invite a User</h4>
+            </div>
+            <div class="modal-body">
+                
+                <div class="col-md-12">
+                    <form asp-route-returnUrl="/Dashboard/Index" method="post" id="register-form">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group has-feedback">
+                            <input asp-for="FirstName" class="form-control" placeholder="First name">
+                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <input asp-for="LastName" class="form-control" placeholder="Last name">
+                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <input asp-for="Email" class="form-control" placeholder="Email">
+                            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <label asp-for="OrganizationID">Organization</label>
+                            <select asp-items="@ViewBag.Organizations" asp-for="OrganizationID" class="form-control"></select>
+                            <span asp-validation-for="OrganizationID" class="field-validation-error"></span>
+                        </div>
+                        @*<div class="form-group has-feedback">
+                            <input asp-for="Password" class="form-control" placeholder="Password">
+                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <input asp-for="ConfirmPassword" class="form-control" placeholder="Retype password">
+                            <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+                        </div>*@
+
+                        @*<div class="col-md-12">
+                            <div class="checkbox icheck">
+                                <label>
+                                    <input asp-for="TermsAndCondition"> I agree to the <a href="#">terms</a>
+                                </label>
+                            </div>
+                        </div>*@
+                        <input type="submit" class="btn btn-primary" value="Send Invite"><i class="hide fa fa-spinner fa-pulse fa-2x fa-fw" style="position:absolute; color: #00c0ef;"></i>
+                    </form>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="registerResultModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Register a new membership</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="emailUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Email User</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <form class="form-horizontal" id="emailUserForm">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">To</label>
+                            <div class="col-sm-10">
+                                <select class="selectpicker form-control" name="emails">
+                                    @foreach(var item in ViewBag.users)
+                                    {
+                                    <option value="@item.UserID" title="@item.FirstName @item.LastName">@item.FirstName @item.LastName (@item.Email)</option>
+
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">Message</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" name="message"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default">Send</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-delete" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">Confirm Action</h4>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to archive this item?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger confirm-delete-btn">Confirm Archive</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@section Scripts{
+    <script>
+        jQuery(function () {
+
+            $('.selectpicker').selectpicker({
+                size: 4
+            });
+
+
+            jQuery("body").on("submit", "#register-form", function (e) {
+                e.preventDefault();
+                jQuery(".fa-spinner").removeClass("hide");
+
+                jQuery(".validation-summary-valid ul, .validation-summary-errors ul").html("");
+                var data = jQuery(this).serialize();
+                jQuery.post("/Account/AjaxRegister", data, function (response) {
+                    if (response.succeeded == false) {
+                        html = '';
+                        jQuery.each(response.errors, function (k, v) {
+                            html += '<li>' + v.description + '</li>';
+                        });
+
+                        jQuery(".validation-summary-valid ul, .validation-summary-errors ul").html(html);
+                        jQuery(".fa-spinner").addClass("hide");
+
+                    } else {
+                        jQuery("#registerResultModal .modal-body > div").html("Successfully added a new user.");
+
+                        jQuery("#registerModal").modal("hide");
+                        jQuery("#registerResultModal").modal();
+                        jQuery("#registerModal input[type='text'], #registerModal input[type='email'], #registerModal input[type='password']").val("");
+                        location.reload();
+
+                    }
+                });
+
+            });
+
+            jQuery("#emailUserForm").on("submit", function (e) {
+                e.preventDefault();
+                var data = jQuery(this).serialize();
+
+                jQuery.post("", data, function (response) {
+                    if (response == "success") {
+                        
+                    }
+                });
+
+            });
+
+            var form;
+            jQuery("body").on("click", ".delete-btn", function (e) {
+                e.preventDefault();
+                form = jQuery(this).parent("form");
+                confirm_action();
+                return false;
+            });
+
+            jQuery("body").on("click", ".confirm-delete-btn", function (e) {
+                e.preventDefault();
+                delete_command();
+
+            });
+
+            var confirm_action = function () {
+                jQuery("#modal-delete").modal();
+            };
+
+            var delete_command = function () {
+                form.submit();
+            };
+
+        });
+
+    </script>
+}

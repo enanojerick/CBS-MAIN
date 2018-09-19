@@ -1,0 +1,40 @@
+﻿@model IList<IdentityRole>
+@{
+    ViewData["Title"] = "Roles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+
+    <section class="content container-fluid">
+        <h1 class="head-title">
+            @ViewData["Title"]
+        </h1>
+
+        <div class="box box-solid">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <table class="table table-responsive table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Role</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td><a class="btn btn-sm btn-warning" asp-controller="Role" asp-action="Edit" asp-route-roleid="@item.Id">Edit</a></td>
+                                </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

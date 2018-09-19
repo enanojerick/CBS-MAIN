@@ -1,0 +1,169 @@
+﻿@model RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ConnectHQ - SureComply</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
+
+    <link rel="stylesheet" href="~/lib/Ionicons/css/ionicons.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/select2.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/AdminLTE.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-datepicker.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/skins/skin-blue.min.css" />
+    <link href="~/lib/bootstrap-select/dist/css/bootstrap-select.css" rel="stylesheet" />
+    <link href="~/css/jquery.Jcrop.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/common.css" />
+    <link rel="stylesheet" href="~/css/custom-blue.css" />
+    <link rel="stylesheet" href="~/css/bootstrap-multiselect.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" />
+ 
+
+</head>
+<body class="hold-transition sidebar-mini skin-blue custom-blue">
+        <div class="register-box">
+            <div class="register-logo">
+                <a href="#"><b>One</b>passport</a>
+            </div>
+            <div class="register-box-body">
+                <p class="login-box-msg">Register a new membership</p>
+
+                <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group has-feedback">
+                        <input asp-for="FirstName" class="form-control" placeholder="First name">
+                        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <input asp-for="LastName" class="form-control" placeholder="Last name">
+                        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <input asp-for="Email" class="form-control" placeholder="Email">
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <input asp-for="Password" class="form-control" placeholder="Password">
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <input asp-for="ConfirmPassword" class="form-control" placeholder="Retype password">
+                        <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <div class="checkbox icheck">
+                                <label>
+                                    <input asp-for="TermsAndCondition"> I agree to the <a href="#">terms</a>
+                                </label>
+                            </div>
+                        </div><!-- /.col -->
+                        <div class="col-xs-4">
+                            <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+                        </div><!-- /.col -->
+                    </div>
+                </form>
+
+                <a asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" class="text-center">I already have a membership</a>
+            </div><!-- /.form-box -->
+        </div><!-- /.register-box -->
+ 
+
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="~/lib/bootstrap/dist/js/adminlte.min.js"></script>
+    <script src="~/js/bootstrap-multiselect.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap-datepicker.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/jquery.Jcrop.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+
+    <script src="~/lib/bootstrap-select/dist/js/bootstrap-select.js"></script>
+
+    <script src="@Url.Content("~/lib/bootstrap/dist/js/Chart.js")"></script>
+
+    <script src="~/js/site.js"></script>
+    <script src="~/js/scripts-hr.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var form;
+            $('.datepicker').datepicker({
+                format: 'dd M yyyy'
+            });
+
+            jQuery.get("/Organization/GetOrganization", function (response) {
+                if (response.isCompletedSuccessfully == true) {
+                    jQuery(".logo-panel .img-circle").attr("src", response.result.fileUrl);
+                    jQuery(".logo-panel").removeClass("hide");
+                }
+                console.log(response);
+            });
+
+            jQuery("body").on("click", ".delete-btn", function (e) {
+                e.preventDefault();
+                form = jQuery(this).parent("form");
+                confirm_action();
+                return false;
+            });
+
+            jQuery("body").on("click", ".confirm-delete-btn", function (e) {
+                e.preventDefault();
+                delete_command();
+
+            });
+
+            var confirm_action = function () {
+                jQuery("#modal-delete").modal();
+            };
+
+            var delete_command = function () {
+                form.submit();
+            };
+
+            jQuery.each(jQuery("input[type='text'], select, textarea"), function (k, v) {
+                var attr = jQuery(v).attr("data-val-required");
+                if (typeof attr !== typeof undefined && attr !== false) {
+                    var id = jQuery(v).attr("id");
+                    jQuery("label[for='" + id + "']").append(" <span class='required'>*</span>");
+                }
+
+            });
+
+
+        });
+
+    </script>
+
+</body>
+</html>
+
+@*@section Scripts {
+        @await Html.PartialAsync("_ValidationScriptsPartial")
+    }*@
+

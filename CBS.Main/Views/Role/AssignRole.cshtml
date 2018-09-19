@@ -1,0 +1,58 @@
+﻿@model ApplicationUser
+@{
+    ViewData["Title"] = "Assign Role";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1 class="head-title">
+            @ViewData["Title"]
+        </h1>
+    </section>
+
+    <section class="content container-fluid">
+        <div class="box box-solid">
+            <div class="box-body">
+                <a class="btn btn-info" asp-action="Index" asp-controller="Organization" asp-route-tab="user-permission">Back to Organisation Management</a>
+            </div>
+        </div>
+        <div class="box box-solid">
+            <div class="form-horizontal">
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <form class="form-horizontal" id="org-form" asp-action="AssignRole" asp-controller="Role">
+                            @Html.HiddenFor(m => m.Id)
+                            @Html.HiddenFor(m => m.ConcurrencyStamp)
+                            <div class="mb-15">
+                                <label for="role">User Name</label>
+                                <input type="text" class="form-control" asp-for="@Model.UserName" value="@Model.UserName" />
+                            </div>
+                            <div class="mb-15">
+                                <label for="role">Roles</label>
+                                <ul class="list-unstyled">
+                                    @foreach (var item in ViewBag.roles)
+                                    {
+                                       List<string> userRole = ViewBag.userRoles;
+                                        var isChecked = userRole.Contains(item.Name);
+                                        <li>
+                                            <input type="checkbox" value="@item.Name" name="role[]" checked="@isChecked" /> @item.Name
+                                        </li>
+                                    }
+                                </ul>
+
+                            </div>
+
+                            <div class="row mb-15 pull-right">
+                                <div class="col-md-12">
+                                    <input type="submit" class="btn btn-primary" value="Save">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

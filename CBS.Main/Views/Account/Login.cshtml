@@ -1,0 +1,103 @@
+﻿@using System.Collections.Generic
+@using System.Linq
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Authentication
+@model LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    ViewData["Title"] = "Connect HQ | Log in";
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SureComply</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/lib/Ionicons/css/ionicons.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/AdminLTE.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/skins/skin-blue.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link href="~/css/custom-blue.css" rel="stylesheet" />
+    <link href="~/css/common.css" rel="stylesheet" />
+</head>
+<body class="hold-transition login-page">
+    <div class="wrapper">
+        <div class="login-box">
+            <div class="login-logo">
+                <a href="#">Connect<b>HQ</b></a>
+            </div><!-- /.login-logo -->
+            <div class="login-box-body">
+                @if (ViewBag.logoutMsg != null)
+            {
+
+                <p class="text-danger text-center">@ViewBag.logoutMsg</p>
+        }
+
+                <p class="login-box-msg">Sign in to start your session</p>
+                <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group has-feedback">
+                        <input class="form-control" placeholder="Email" asp-for="Email">
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <input class="form-control" placeholder="Password" asp-for="Password">
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <a href="~/Account/ForgotPassword">Forgot Password?</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" asp-for="RememberMe"> Remember Me
+                                </label>
+                            </div>
+                        </div><!-- /.col -->
+                        <div class="col-xs-4">
+                            <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                        </div><!-- /.col -->
+                    </div>
+
+                </form>
+
+                @*<a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" class="text-center">Register a new membership</a>*@
+            </div><!-- /.login-box-body -->
+        </div><!-- /.login-box -->
+
+        <footer class="footer">
+            <div class="container">
+                <div class="col-sm-12 p-t15 p-b15 footer-copyright">
+                    <span class="text-muted">
+                        <strong>© <a href="https://www.surecomply.co/">SureComply</a> Pty Ltd ABN 70 619 251 571</strong>
+                    </span>
+
+                    <span class="pull-right"><small><a href="/eula">EULA</a> | <a href="/privacypolicy">Privacy Policy</a></small></span>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+</body>
+</html>

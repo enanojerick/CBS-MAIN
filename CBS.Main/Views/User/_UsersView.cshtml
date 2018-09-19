@@ -1,0 +1,70 @@
+﻿@model IList<UserDto>
+@{
+    Layout = null;
+    var isSuperAdmin = this.User.IsInRole(ViewBag.superAdmin);
+    var isAdmin = this.User.IsInRole(ViewBag.admin);
+}
+
+<div class="box-body">
+    <div class="row">
+        <div class="col-md-6">
+            @if (isSuperAdmin || isAdmin)
+            { 
+                <button class="btn btn-info @(ViewContext.RouteData.Values["Action"].ToString() == "Edit" ? "hide" : "")" data-target="#registerModal" data-toggle="modal"><i class="fa fa-user-plus"></i> Add User</button>
+            }
+            
+        </div>
+
+        <div class="col-md-6 pull-right">
+
+            <div class="col-md-3 p-r0 p-t5">
+                <label>Organisation</label>
+            </div>
+            <div class="col-md-9 p-l0">
+                <select class="form-control org-dropdown">
+                    @foreach (var item in ViewBag.Organizations)
+                    {
+                    bool selected = ViewBag.orgId.ToString() == item.Value ? true : false;
+                    <option value="@item.Value" selected="@selected">@item.Text</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-responsive table-hover sortingtables">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            @if (isSuperAdmin)
+            { 
+                <th></th>
+            }
+        
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.FirstName @item.LastName</td>
+                <td>@item.Email</td>
+                @if (isSuperAdmin)
+                { 
+                     <td>
+                        <a asp-action="Edit" asp-controller="User" asp-route-identityid="@item.IdentityID" asp-route-r="@ViewBag.returnUrl" class="btn btn-warning btn-sm">Edit</a>
+                        <form class="delete-form" id="delete-employee-form" asp-action="Delete" asp-controller="User">
+                            <input type="hidden" value="@ViewBag.returnUrl" name="r" />
+                            <input type="hidden" value="@item.IdentityID" name="IdentityID" />
+                            <input type="submit" class="btn btn-sm btn-danger delete-btn" value="Archive" />
+                        </form>
+                    </td>
+                }
+               
+            </tr>
+        }
+    </tbody>
+</table>

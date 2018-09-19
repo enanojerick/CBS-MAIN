@@ -1,0 +1,124 @@
+﻿@model OrganizationDto
+
+@{
+    ViewData["Title"] = "Organisation Chart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper dashboard">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            @ViewData["Title"]
+        </h1>
+    </section>
+  
+    <section class="content container-fluid">
+
+        <div class="box box-solid">
+            <div class="box-header">
+                <div id="chart-container" class="bg-white"></div>
+            </div>
+        </div>
+        
+    </section>
+</div>
+
+@section Scripts{
+    <script>
+        jQuery(function () {
+            /**
+             * Chart Init
+             */
+            var data = {};
+            jQuery.post("/Organization/GetChart", function (response) {
+                data.children = [];
+
+                if (response.parent != null) {
+                    data.name = response.parent.organizationName;
+                    data.title = response.parent.industry;
+                    data.orgId = response.parent.organizationID;
+                    data.orgType = response.parent.organizationTypeID;
+                    data.className = "parentBranch parentOrg";
+
+                }
+
+                if (response.branch != null) {
+                    var childData = getChildren(response.branch);
+                    data.children = childData;
+
+                }
+
+                oc.init({ 'data': data });
+            }, "json");
+
+            var oc = $('#chart-container').orgchart({
+                'data': data,
+                'nodeContent': 'title',
+                'zoom': true,
+                'pan': true,
+                'createNode': function ($node, dataList) {
+                    if ($node.is('.drill-down')) {
+                        var assoClass = dataList.className.match(/parentBranch/)[0];
+                        var drillDownIcon = $('<i>', {
+                            'class': 'fa fa-arrow-circle-down drill-icon',
+                            'click': function () {
+                                if (!$('#chart-container').find('.orgchart.' + assoClass).length) {
+                                    console.log(data.children[0]);
+                                    oc.init({ 'data': data.children[0] });
+                                } else {
+                                    $('#chart-container').find('.orgchart.' + assoClass).removeClass('hidden');
+                                }
+                            }
+                        });
+
+                    } else if ($node.is('.drill-up')) {
+                        var assoClass = dataList.className.match(/asso-\w+/)[0];
+                        var drillUpIcon = $('<i>', {
+                            'class': 'fa fa-arrow-circle-up drill-icon',
+                            'click': function () {
+                                $('#chart-container').find('.orgchart:visible').addClass('hidden').end()
+                                    .find('.drill-down.' + assoClass).closest('.orgchart').removeClass('hidden');
+                            }
+                        });
+                    }
+
+                    $node.append('<div class="control"></div>');
+
+                    var edit = $('<a>', {
+                        'class': 'fa fa-edit',
+                        'href': '/Organization/EditBranch?r=1&orgid=' + dataList.orgId,
+                        'click': function () {
+                        }
+                    });
+
+                    var add = $('<a>', {
+                        'class': 'fa fa-plus',
+                        'href': '/Organization/AddBranch?r=1&orgid=' + dataList.orgId,
+                        'click': function () {
+
+                        }
+                    });
+
+                    $node.find(".control").append(edit);
+
+                    if (dataList.orgType == 1) {
+                        $node.find(".control").append(add);
+                    }
+
+                    $node.hover(
+                        function () {
+                            jQuery(this).find(".control").show();
+                        }, function () {
+                            jQuery(this).find(".control").hide();
+                        }
+                    );
+
+                }
+            });
+
+            
+        });
+
+    </script>
+}

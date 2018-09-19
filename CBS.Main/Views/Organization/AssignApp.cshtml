@@ -1,0 +1,71 @@
+﻿@model UsersOrgAppsDto
+
+<div class="content-wrapper dashboard">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            @ViewData["Title"]
+        </h1>
+
+    </section>
+    <!-- Main content -->
+    <section class="content container-fluid">
+        <div class="row">
+            <div class="box box-solid">
+                <div class="box-header">
+                    <h3>Assign App</h3>
+                </div>
+
+                <div class="box-body">
+                    <form  asp-controller="Organization" asp-action="AssignApp">
+                        <div class="form-group">
+                            <label>User</label>
+                            <select class="form-control" asp-items="@ViewBag.users" asp-for="UserID"></select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Organisation Apps</label>
+                            <div class="drop-down">
+                                <select class="form-control" multiple asp-for="OrgAppIDs">
+                                    @foreach (var item in ViewBag.OrgApp)
+                                    {
+                                        @if(item.Applications.File != null)
+                                        {
+                                            <option value="@item.OrgAppID.ToString()" style="background-image: url('@item.Applications.File');">
+                                                @item.Applications.AppName
+                                            </option>
+
+                                        }
+                                        else{
+                                            <option value="@item.OrgAppID.ToString()" style="background-image: url('https://dummyimage.com/25x25/1197f0/fff.png&text=@item.Applications.AppName.Substring(0, 1)');">
+                                                @item.Applications.AppName
+                                            </option>
+                                        }
+                                    
+
+                                    }
+                                </select>
+                                <span asp-validation-for="OrgAppIDs"></span>
+                            </div>
+                            
+                            @*@Html.ListBoxFor(m => m.OrgAppID, new MultiSelectList(ViewBag.OrgApp, "Value", "Text"))*@
+
+                            
+                        </div>
+
+                        <input type="submit" class="btn btn-custom-blue" value="Assign App" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+
+@section Scripts{ 
+    <script>
+        jQuery(function () {
+
+        });
+    </script>
+}

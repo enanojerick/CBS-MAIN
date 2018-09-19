@@ -1,0 +1,437 @@
+﻿body {
+    font-family: 'Lato', sans-serif;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: 'Roboto', sans-serif;
+}
+
+.pdf-view h3 {
+    color: #0073b7;
+}
+
+.custom-blue .main-header .navbar {
+    background-color: #fff;
+}
+
+.custom-blue .main-header .logo {
+    background-color: #006DAC;
+}
+
+.custom-blue .wrapper, .custom-blue .main-sidebar, .custom-blue .left-side {
+    background-color: #006DAC;
+}
+
+.custom-blue .navbar {
+    box-shadow: 0 0px 5px rgba(0,0,0,.175);
+}
+
+.custom-blue .sidebar-menu > li.active > a {
+    font-weight: 500;
+}
+
+.custom-blue .main-header .navbar .sidebar-toggle {
+    color: #333;
+}
+
+.upload-text {
+    margin: 0;
+    background: rgba(24, 25, 27, 0.5);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    padding: 3px;
+}
+
+#image_prev_container {
+    width: 550px;
+    min-width: 550px;
+    margin: 0 auto;
+}
+
+.jcrop-holder {
+    margin: 0 auto;
+}
+
+.content-box .form-group {
+    margin-bottom: 0px;
+}
+
+/*.license-field:hover{
+    background: #3c8dbc;
+    color: #fff;
+}
+
+.license-field:hover .btn-box-tool {
+    color: #fff;
+}
+
+.license-field:hover a {
+    color: #fff;
+}*/
+
+
+@media only screen and (max-width: 1000px) {
+    #Profile {
+        position: relative;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    #ProfileData {
+        float: none;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .custom-tab-menu h4 {
+        font-size: 12px;
+    }
+}
+
+.profile-image-box {
+    border-bottom: 1px solid #eee;
+}
+
+.profile-image-box .profile-user-img {
+        height: 150px !important;
+        width: 150px;
+    }
+
+
+/*  custom tab */
+div.custom-tab-container {
+    position: relative;
+    z-index: 9999;
+    background-color: #ffffff;
+    padding: 0 !important;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+   
+    background-clip: padding-box;
+    opacity: 0.97;
+    filter: alpha(opacity=97);
+}
+
+div.custom-tab-menu {
+    padding-right: 0;
+    padding-left: 0;
+    padding-bottom: 0;
+}
+
+div.custom-tab-menu div.list-group {
+margin-bottom: 0;
+}
+
+div.custom-tab-menu div.list-group > a {
+margin-bottom: 0;
+}
+
+div.custom-tab-menu div.list-group > a .glyphicon,
+div.custom-tab-menu div.list-group > a .fa {
+    color: #5A55A3;
+}
+
+div.custom-tab-menu div.list-group > a:first-child {
+    border-top-right-radius: 0;
+    -moz-border-top-right-radius: 0;
+}
+
+div.custom-tab-menu div.list-group > a:last-child {
+    border-bottom-right-radius: 0;
+    -moz-border-bottom-right-radius: 0;
+}
+
+div.custom-tab-menu div.list-group > a.active,
+div.custom-tab-menu div.list-group > a.active .glyphicon,
+div.custom-tab-menu div.list-group > a.active .fa {
+    background-color: #5A55A3;
+    background-image: #5A55A3;
+    color: #ffffff;
+}
+
+    div.custom-tab-menu div.list-group > a.active:after {
+        content: '';
+        position: absolute;
+        left: 100%;
+        top: 50%;
+        margin-top: -13px;
+        border-left: 0;
+        border-bottom: 13px solid transparent;
+        border-top: 13px solid transparent;
+        border-left: 10px solid #5A55A3;
+    }
+
+div.custom-tab-content {
+    background-color: #ffffff;
+    /* border: 1px solid #eeeeee; */
+    padding-left: 20px;
+    padding-top: 10px;
+    min-height: 650px;
+    border: 1px solid #ddd;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    -moz-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+
+div.custom-tab div.custom-tab-content:not(.active) {
+    display: none;
+}
+
+.content-wrapper{
+    position:relative;
+}
+
+.modal-backdrop {
+    z-index: 1 !important;
+}
+
+div#registerForm {
+    vertical-align: middle;
+    padding: 10px;
+    background-color: #eceeef;
+    background-size: contain;
+    margin: 5%;
+    position: relative;
+    box-shadow: 1px 1px 10px 1px #808080;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #f8f9fa;
+}
+
+#mainBanner {
+    margin: 30% auto;
+}
+
+#mainBanner h1 {
+    font-size: 57px;
+    color: black;
+    text-shadow: 3px 4px 14px #ffffff;
+    font-family: 'Muli', sans-serif;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.login-page {
+    background: url('../images/white-wall-2.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.login-page .navbar {
+    box-shadow: 1px 1px 10px 1px #808080;
+}
+
+.login-page .footer {
+    box-shadow: 1px 1px 10px 1px #808080;
+}
+
+.error-message {
+    font-size: 10px;
+    color: red;
+    padding-left: 0px;
+    position: absolute;
+    z-index: 999;
+}
+
+.error-message ul {
+    list-style: none;
+    padding: 12px 0px;
+    display: block;
+    position: absolute;
+}
+
+.field-validation-error {
+    color: red;
+    font-size: 14px;
+}
+.validation-summary-errors ul {
+    list-style: none;
+    font-size: 12px;
+    color: red;
+    padding-left: 15px;
+}
+
+.modal-dialog {
+    margin-top:60px !important;
+}
+
+.forgot-pw-page {
+    background-color: #f1f1f1;
+    background-image: none;
+}
+
+#password-form-container{
+    margin-top:50px;
+}
+
+.forgot-pw-page .back-button {
+    color: #000;
+    font-size: 14px;
+    text-decoration: underline;
+}
+
+.required{
+    color: red;
+}
+
+.loader {
+    width: 100%;
+    height: 100%;
+    background: rgba(183, 183, 183, 0.17);
+    position: absolute;
+    text-align: center;
+    z-index: 9999999999999999999999;
+}
+
+    .loader .spin-icon {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #5e5aa6;
+    }
+
+.user-panel > .image > img {
+    width: 100%;
+    max-width: 80px;
+    height: auto;
+    margin: 0 auto;
+    border-radius: 50%;
+}
+
+.custom-blue .sidebar-menu > li > a {
+    color: #fff !important;
+    font-weight: normal;
+}
+
+.custom-blue .sidebar-menu > li:hover > a, .custom-blue .sidebar-menu > li.active > a {
+    background-color: #015B8C;
+}
+
+.custom-blue .main-header .navbar .nav > li > a {
+    color: #333;
+}
+
+.custom-blue .img-circle {
+    border-radius: 50%;
+}
+
+.sidebar-menu > li > a > span{
+    margin-left: 10px;
+}
+
+.user-panel > .info{
+    position: relative !important;
+    left: 0px !important;
+}
+
+.dash-header {
+    background: url(/images/bg-1.jpg);
+}
+
+.logout-btn {
+    color: #fff !important;
+    font-weight: normal;
+    background: none;
+    border: none;
+    padding: 12px 5px 12px 15px;
+    border-left: 3px solid transparent;
+    width: 100%;
+    text-align: left;
+}
+
+.logout-btn:hover {
+    background-color: #015B8C;
+}
+
+.connecthq-register {
+    background-image: linear-gradient(to bottom left, rgba(0,0,0,0), rgba(255, 0, 0, 0.29)), linear-gradient(to bottom right, rgba(0, 153, 255, 0.75), rgba(129, 160, 214, 0.85)), url(../images/register-bg2.jpg);
+    background-size: cover;
+    background-position: top center;
+}
+
+.connecthq-register .register-logo a{
+    color: #fff;
+}
+
+.connecthq-register .icheck {
+    margin-left: 20px;
+}
+
+.connecthq-register  .register-box{
+    margin: 100px auto;
+}
+
+.connecthq-register  .description-box{
+    padding: 100px 0px;
+    margin: 100px auto;
+    color: #fff;
+    text-align: center;
+}
+
+.connecthq-register .description-box p{
+    font-size: 18px;
+}
+.connecthq-register h1, h2, h3, h4, h5 {
+    font-family: 'Open Sans', sans-serif;
+    padding-bottom: 10px;
+
+}
+
+@media only screen and (max-width: 991px) {
+    .connecthq-register .description-box {
+        padding: 0px;
+        margin: 10px auto;
+    }
+}
+
+hr{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.back-button{
+    padding-left: 30px;
+}
+
+.login-box {
+    width: 460px;
+}
+
+.login-page {
+    background: #fff;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: bottom center;
+}
+
+.login-logo a {
+    color: #666;
+}
+
+.forgot-pw-page .login-box-body {
+    border: 1px solid #e2e2e2;
+    box-shadow: 1px 1px 3px #e2e2e2;
+}
+
+.forgot-pw-page .confirm-box-body {
+    border: 1px solid #e2e2e2;
+    border-radius: 0px;
+}
+
+.forgot-pw-page .login-logo {
+    background: #f6f6f6;
+    border: 1px solid #e2e2e2;
+    border-bottom: 0px;
+    margin-bottom: 0px;
+    box-shadow: 1px 1px 3px #e2e2e2;
+}
