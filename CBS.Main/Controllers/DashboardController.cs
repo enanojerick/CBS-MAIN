@@ -44,18 +44,18 @@ namespace CBS.Main.Controllers
 
         public async Task<ActionResult> Index()
         {
-            var email = User.Identity.Name;
-            var loggeduser = _UserService.GetProfileByEmailOAuth(email);
+            //var email = User.Identity.Name;
+            //var loggeduser = _UserService.GetProfileByEmailOAuth(email);
 
-            var platform = await _PlatformService.GetUserPlatform(loggeduser.UserID.Value);
+            //var platform = await _PlatformService.GetUserPlatform(loggeduser.UserID.Value);
 
-            var userapps = _ApplicationsService.GetUserAppsByUserID(loggeduser.UserID.Value);
+            //var userapps = _ApplicationsService.GetUserAppsByUserID(loggeduser.UserID.Value);
 
-            var deptplatforms = await _PlatformService.GetDepartmentPlatformByDepID(loggeduser.DepartmentID.Value);
+            //var deptplatforms = await _PlatformService.GetDepartmentPlatformByDepID(loggeduser.DepartmentID.Value);
 
-            ViewBag.UserApps = userapps;
-            ViewBag.DeptPlatforms = deptplatforms;
-            ViewBag.platform = platform;
+            //ViewBag.UserApps = userapps;
+            //ViewBag.DeptPlatforms = deptplatforms;
+            //ViewBag.platform = platform;
 
             return View();
         }

@@ -53,44 +53,44 @@ namespace CBS.Main.Extensions
             //}
             #endregion
 
-            apps = ssoservice.GetApplications(Configuration.GetConnectionString("AuthConnection").ToString());
+            //apps = ssoservice.GetApplications(Configuration.GetConnectionString("AuthConnection").ToString());
 
             List<Client> clients = new List<Client>();
 
-            foreach (var item in apps)
-            {
-                var iclient = new Client
-                {
-                    ClientId = item.ClientID,
-                    ClientName = item.ClientName,
-                    AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
+            //foreach (var item in apps)
+            //{
+            //    var iclient = new Client
+            //    {
+            //        ClientId = item.ClientID,
+            //        ClientName = item.ClientName,
+            //        AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
 
-                    RequireConsent = false,
+            //        RequireConsent = false,
 
-                    ClientSecrets =
-                                    {
-                                        new Secret(item.Sha256.Sha256())
-                                    },
+            //        ClientSecrets =
+            //                        {
+            //                            new Secret(item.Sha256.Sha256())
+            //                        },
 
-                    RedirectUris = { item.RedirectURIs },
-                    PostLogoutRedirectUris = { item.PostLogoutRedirectUris },
+            //        RedirectUris = { item.RedirectURIs },
+            //        PostLogoutRedirectUris = { item.PostLogoutRedirectUris },
 
-                    AllowedScopes =
-                                    {
-                                        IdentityServerConstants.StandardScopes.OpenId,
-                                        IdentityServerConstants.StandardScopes.Profile,
-                                        IdentityServerConstants.ProfileDataCallers.ClaimsProviderIdentityToken,
-                                        "roles",
-                                        "orgid"
-                                    },
-                    AllowOfflineAccess = true,
-                    AlwaysSendClientClaims = true,
-                    AllowedCorsOrigins = { item.CorsOrigins }
-                };
+            //        AllowedScopes =
+            //                        {
+            //                            IdentityServerConstants.StandardScopes.OpenId,
+            //                            IdentityServerConstants.StandardScopes.Profile,
+            //                            IdentityServerConstants.ProfileDataCallers.ClaimsProviderIdentityToken,
+            //                            "roles",
+            //                            "orgid"
+            //                        },
+            //        AllowOfflineAccess = true,
+            //        AlwaysSendClientClaims = true,
+            //        AllowedCorsOrigins = { item.CorsOrigins }
+            //    };
 
-                clients.Add(iclient);
+            //    clients.Add(iclient);
 
-            };
+            //};
 
             return clients;
         }

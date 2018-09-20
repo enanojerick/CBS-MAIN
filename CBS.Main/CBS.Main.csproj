@@ -35,6 +35,7 @@
 
   <ItemGroup>
     <Folder Include="ApiController\" />
+    <Folder Include="wwwroot\css\material-pro\css\" />
   </ItemGroup>
 
   <ItemGroup>

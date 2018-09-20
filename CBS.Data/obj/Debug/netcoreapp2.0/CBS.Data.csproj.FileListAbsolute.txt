@@ -34,3 +34,14 @@ D:\GitHub\CBS-MAIN\CBS.Data\obj\Debug\netcoreapp2.0\CBS.Data.AssemblyInfo.cs
 D:\GitHub\CBS-MAIN\CBS.Data\obj\Debug\netcoreapp2.0\CBS.Data.csproj.CopyComplete
 D:\GitHub\CBS-MAIN\CBS.Data\obj\Debug\netcoreapp2.0\CBS.Data.dll
 D:\GitHub\CBS-MAIN\CBS.Data\obj\Debug\netcoreapp2.0\CBS.Data.pdb
+D:\Proj\CBS-MAIN\CBS.Data\bin\Debug\netcoreapp2.0\CBS.Data.deps.json
+D:\Proj\CBS-MAIN\CBS.Data\bin\Debug\netcoreapp2.0\CBS.Data.dll
+D:\Proj\CBS-MAIN\CBS.Data\bin\Debug\netcoreapp2.0\CBS.Data.pdb
+D:\Proj\CBS-MAIN\CBS.Data\bin\Debug\netcoreapp2.0\CBS.Data.Repository.dll
+D:\Proj\CBS-MAIN\CBS.Data\bin\Debug\netcoreapp2.0\CBS.Data.Repository.pdb
+D:\Proj\CBS-MAIN\CBS.Data\obj\Debug\netcoreapp2.0\CBS.Data.csprojResolveAssemblyReference.cache
+D:\Proj\CBS-MAIN\CBS.Data\obj\Debug\netcoreapp2.0\CBS.Data.csproj.CoreCompileInputs.cache
+D:\Proj\CBS-MAIN\CBS.Data\obj\Debug\netcoreapp2.0\CBS.Data.AssemblyInfoInputs.cache
+D:\Proj\CBS-MAIN\CBS.Data\obj\Debug\netcoreapp2.0\CBS.Data.AssemblyInfo.cs
+D:\Proj\CBS-MAIN\CBS.Data\obj\Debug\netcoreapp2.0\CBS.Data.dll
+D:\Proj\CBS-MAIN\CBS.Data\obj\Debug\netcoreapp2.0\CBS.Data.pdb

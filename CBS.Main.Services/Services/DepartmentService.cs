@@ -21,19 +21,19 @@ namespace CBS.Main.Services
         private IRepository<CBS_Department> _Department;
         private IRepository<CBS_Users> _Users;
         private IOptions<AzureContainerSettings> _AzureContainerSettings;
-        private IAzureBlobStorage _AzureBlobStorage;
+        //private IAzureBlobStorage _AzureBlobStorage;
         private readonly UserManager<ApplicationUser> _UserManager;
 
         public DepartmentService(IRepository<CBS_Department> Department,
             IRepository<CBS_Users> Users,
             IOptions<AzureContainerSettings> AzureContainerSettings,
-            IAzureBlobStorage AzureBlobStorage,
+           // IAzureBlobStorage AzureBlobStorage,
             UserManager<ApplicationUser> UserManager)
         {
             _Department = Department;
             _Users = Users;
             _AzureContainerSettings = AzureContainerSettings;
-            _AzureBlobStorage = AzureBlobStorage;
+          //  _AzureBlobStorage = AzureBlobStorage;
             _UserManager = UserManager;
             _Users = Users;
         }

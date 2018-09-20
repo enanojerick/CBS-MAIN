@@ -1432,7 +1432,7 @@
       ]
     },
     "Remotion.Linq/2.1.1": {
-      "sha512": "rEnsnnVxf7CKWEpHXCG3zUYmCsr4E8FpC1zHlrlk7jmwcdXBOaspapmFcqGzxSOsevdX3tBZ6vBBJVrru0g/DQ==",
+      "sha512": "IJn0BqkvwEDpP+2qjvci7n4/a9f7DhKESLWb2/uG4xQh3rTkGTBUz69bI4IivCoKkTFAqjXxYDZw2K/npohjsw==",
       "type": "package",
       "path": "remotion.linq/2.1.1",
       "files": [
@@ -2028,7 +2028,7 @@
       ]
     },
     "System.Linq.Queryable/4.0.1": {
-      "sha512": "KHf5/KnSou/UL/NpHlfSmQbMkF3L/vaa1Of3Sncuyv4fDpjtkpjtrqTkO0ry+gBwiri/rJdCVUov+cANzmND/A==",
+      "sha512": "Yn/WfYe9RoRfmSLvUt2JerP0BTGGykCZkQPgojaxgzF2N0oPo+/AhB8TXOpdCcNlrG3VRtsamtK2uzsp3cqRVw==",
       "type": "package",
       "path": "system.linq.queryable/4.0.1",
       "files": [
@@ -2944,12 +2944,15 @@
   },
   "project": {
     "version": "1.0.0",
+    "restoreSettings": {
+      "hideWarningsAndErrors": true
+    },
     "restore": {
-      "projectUniqueName": "D:\\GitHub\\CBS-MAIN\\CBS.Data.Repository\\CBS.Data.Repository.csproj",
+      "projectUniqueName": "D:\\Proj\\CBS-MAIN\\CBS.Data.Repository\\CBS.Data.Repository.csproj",
       "projectName": "CBS.Data.Repository",
-      "projectPath": "D:\\GitHub\\CBS-MAIN\\CBS.Data.Repository\\CBS.Data.Repository.csproj",
+      "projectPath": "D:\\Proj\\CBS-MAIN\\CBS.Data.Repository\\CBS.Data.Repository.csproj",
       "packagesPath": "C:\\Users\\Agent\\.nuget\\packages\\",
-      "outputPath": "D:\\GitHub\\CBS-MAIN\\CBS.Data.Repository\\obj\\",
+      "outputPath": "D:\\Proj\\CBS-MAIN\\CBS.Data.Repository\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

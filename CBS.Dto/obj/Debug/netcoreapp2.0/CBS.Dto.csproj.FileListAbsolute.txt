@@ -24,3 +24,12 @@ D:\GitHub\CBS-MAIN\CBS.Dto\obj\Debug\netcoreapp2.0\CBS.Dto.AssemblyInfoInputs.ca
 D:\GitHub\CBS-MAIN\CBS.Dto\obj\Debug\netcoreapp2.0\CBS.Dto.AssemblyInfo.cs
 D:\GitHub\CBS-MAIN\CBS.Dto\obj\Debug\netcoreapp2.0\CBS.Dto.dll
 D:\GitHub\CBS-MAIN\CBS.Dto\obj\Debug\netcoreapp2.0\CBS.Dto.pdb
+D:\Proj\CBS-MAIN\CBS.Dto\bin\Debug\netcoreapp2.0\CBS.Dto.deps.json
+D:\Proj\CBS-MAIN\CBS.Dto\bin\Debug\netcoreapp2.0\CBS.Dto.dll
+D:\Proj\CBS-MAIN\CBS.Dto\bin\Debug\netcoreapp2.0\CBS.Dto.pdb
+D:\Proj\CBS-MAIN\CBS.Dto\obj\Debug\netcoreapp2.0\CBS.Dto.csprojResolveAssemblyReference.cache
+D:\Proj\CBS-MAIN\CBS.Dto\obj\Debug\netcoreapp2.0\CBS.Dto.csproj.CoreCompileInputs.cache
+D:\Proj\CBS-MAIN\CBS.Dto\obj\Debug\netcoreapp2.0\CBS.Dto.AssemblyInfoInputs.cache
+D:\Proj\CBS-MAIN\CBS.Dto\obj\Debug\netcoreapp2.0\CBS.Dto.AssemblyInfo.cs
+D:\Proj\CBS-MAIN\CBS.Dto\obj\Debug\netcoreapp2.0\CBS.Dto.dll
+D:\Proj\CBS-MAIN\CBS.Dto\obj\Debug\netcoreapp2.0\CBS.Dto.pdb
