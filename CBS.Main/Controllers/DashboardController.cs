@@ -238,6 +238,21 @@ namespace CBS.Main.Controllers
         {
             return View();
         }
+
+        
+        /**
+         * TODO : Temporary pages
+         */
+
+        public ActionResult Employee()
+        {
+            return View();
+        }
+
+        public ActionResult Profile()
+        {
+            return View();
+        }
     }
 }
 
