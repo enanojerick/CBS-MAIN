@@ -246,6 +246,9 @@ namespace CBS.Main.Controllers
 
         public ActionResult Employee()
         {
+            var dept = _DepartmentService.GetDepartmentBranchDDLByDeptID(1);
+
+            ViewBag.department = dept;
             return View();
         }
 

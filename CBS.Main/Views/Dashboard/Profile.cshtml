@@ -3,6 +3,20 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section Breadcrumb{
+    <div class="row page-titles">
+        <div class="col-md-5 col-8 align-self-center">
+            <h3 class="text-themecolor">Profile</h3>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Employee">Employee</a></li>
+                <li class="breadcrumb-item active">Profile</li>
+            </ol>
+        </div>
+        <div class="col-md-7 col-4 align-self-center">
+
+        </div>
+    </div>
+}
 <div class="col-lg-4 col-xlg-3 col-md-5">
     <div class="card">
         <div class="card-body">
@@ -59,7 +73,7 @@
                                 <td></td>
                             </tr>
                         </tbody>
-                        
+
                     </table>
                 </div>
             </div>
