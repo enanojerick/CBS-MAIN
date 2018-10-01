@@ -256,6 +256,16 @@ namespace CBS.Main.Controllers
         {
             return View();
         }
+
+        public ActionResult AddUser()
+        {
+            return View();
+        }
+
+        public ActionResult ViewUser()
+        {
+            return View();
+        }
     }
 }
 

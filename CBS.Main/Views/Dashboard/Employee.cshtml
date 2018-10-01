@@ -22,10 +22,13 @@
     <div class="card">
         <div class="card-body">
             <div class="form-group pull-right">
+                <a id="demo-btn-addrow" class="btn btn-primary btn-sm" asp-action="AddUser" asp-controller="Dashboard">
+                    <i class="icon wb-plus" aria-hidden="true"></i>Add User
+                </a>
                 <button id="demo-btn-addrow" class="btn btn-primary btn-sm" data-target="#invite-modal" data-toggle="modal">
                     <i class="icon wb-plus" aria-hidden="true"></i>Invite User
                 </button>
-       
+
             </div>
             <div class="table-responsive m-t-40">
                 <table id="example" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
@@ -571,7 +574,7 @@
 
             jQuery.each($('#example tbody tr'), function (k, v) {
                 var html = '<td class="text-nowrap">';
-                html += '<a href= "/Dashboard/Profile" data-toggle="tooltip" data-original-title="Edit" > <i class="mdi mdi-table-edit text-info m-r-10"></i> </a>';
+                html += '<a href= "/Dashboard/Profile" data-toggle="tooltip" data-original-title="View" > <i class="mdi mdi-magnify text-info m-r-10"></i> </a>';
                 html += '<a href="#" data-toggle="tooltip" data-original-title="Delete"> <i class="mdi mdi-delete-empty text-danger"></i> </a>';
                 html += '</td >';
 
