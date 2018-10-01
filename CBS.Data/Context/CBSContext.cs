@@ -20,7 +20,8 @@ namespace CBS.Data.Context
         public virtual DbSet<CBS_UserPlatform> CBS_UserPlatform { get; set; }
         public virtual DbSet<CBS_Users> CBS_Users { get; set; }
         public virtual DbSet<CBS_UsersApps> CBS_UsersApps { get; set; }
-
+        public virtual DbSet<CBS_StaffDailySchedule> CBS_StaffDailySchedule { get; set; }
+        
 
     }
     
